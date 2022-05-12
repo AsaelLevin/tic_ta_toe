@@ -4,3 +4,7 @@
 #title{
         text-align: center;
 }
+
+#textInput{
+    max-width: 40px;
+}

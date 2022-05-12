@@ -33,6 +33,7 @@ for (i of card) {
 }
 
 // PLAYER REGISTER
+let moveCounter=0;
 
 // ALTERNATE PLAYERS
 function alternatePlayers(startPlayer, secondPlayer, moveCount) {
@@ -40,17 +41,35 @@ function alternatePlayers(startPlayer, secondPlayer, moveCount) {
   currentPlayer = moveCount / 2 == 0 ? startPlayer : secondPlayer;
   return currentPlayer;
 }
-
-function checkWin() {
-  // Check rows
-  board.forEace((row) => {
+// This function returns the symbol of the winner
+function checkWin(board) {
+  // n is the matrix dimension
+  // This function checks for rows with equal elemnts
+  function equalElements(row) {
     let set1 = new Set(row);
-    if ([...set1].length == 1) {
+    if ([...set1].length == 1 && [...set1][0] != "") {
       return [...set1][0];
     }
-  });
-  // Make an array of the columns
+  }
+
+  function checkEqual(board) {
+    board.forEace((row) => {
+      equalElements(row);
+    });
+  }
+
+  // Check rows
+  checkEqual(board);
+  // Transpose the board to iterate over the columns
+  let boardTrans = board[0].map((col, ind) => board.map((row) => row[ind]));
+  checkEqual(boardTrans);
+
   // Make an array of the diagonals
+  let mainDiag = board.map((col, ind) => col[ind++]);
+  equalElements(mainDiag);
+  let n = board[0].length;
+  let secDiag = board.map((col, ind) => col[n - ind++]);
+  equalElements(secDiag);
 }
 
 function match() {}
