@@ -29,7 +29,7 @@ function checkWin(board, n) {
   checkEqual(board);
   // Transpose the board to iterate over the columns
   let boardTrans = board[0].map((col, ind) => board.map((row) => row[ind]));
-  checkEqual([...boardTrans]);
+  checkEqual(boardTrans);
 
   // Make an array of the diagonals
   let mainDiag = board.map((col, ind) => col[ind++]);
