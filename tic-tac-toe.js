@@ -1,35 +1,33 @@
 // BOARD
 let rows = 3;
 let cols = 3;
-const card = ['', '', '']
+const card = ["", "", ""];
 const board = document.getElementById("board");
 
 function flipCrad() {
-    console.log(card);
+  console.log(card);
 }
 
 function craeteCrad(idx) {
-    const row = document.createElement("div")
-    for (let i = 3; i > 0; i--) {
-        const col = document.createElement("div")
+  const row = document.createElement("div");
+  for (let i = 3; i > 0; i--) {
+    const col = document.createElement("div");
 
-        console.log(i);
-        row.className = 'row'
-        for (let f = 3; f > 0; f--) {
-            col.className = `col  ${f}`
-            col.innerText = "X"
-            row.appendChild(col)
-
-        }
-        board.appendChild(row);
+    console.log(i);
+    row.className = "row";
+    for (let f = 3; f > 0; f--) {
+      col.className = `col  ${f}`;
+      col.innerText = "X";
+      row.appendChild(col);
     }
+    board.appendChild(row);
+  }
 
-    // container.addEventListener('click', flipCrad)
-
+  // container.addEventListener('click', flipCrad)
 }
 
 for (i of card) {
-    craeteCrad(i)
+  craeteCrad(i);
 }
 
 // PLAYER REGISTER
@@ -43,7 +41,6 @@ function alternatePlayers(startPlayer, secondPlayer, moveCount) {
 }
 // This function returns the symbol of the winner
 function checkWin(board) {
-  debugger;
   // n is the matrix dimension
   // This function checks for rows with equal elemnts
   function equalElements(row) {
@@ -54,7 +51,7 @@ function checkWin(board) {
   }
 
   function checkEqual(board) {
-    board.array.fo((row) => {
+    board.map((row) => {
       equalElements(row);
     });
   }
@@ -72,12 +69,7 @@ function checkWin(board) {
   let secDiag = board.map((col, ind) => col[n - ind++]);
   equalElements(secDiag);
 }
-let arr = [
-  [1, 2, 3],
-  [3, 3, 3],
-  [6, 7, 8],
-];
-checkWin(arr);
+
 function match() {}
 
 function game() {
