@@ -1,7 +1,51 @@
 // BOARD
+let boardSize = 3;
+let boradArr = [];
+const board = document.getElementById("board");
+
+function newArray(size) {
+  //genert new array and return
+  const newArr = [];
+  for (a = 0; a < size; a++) {
+    newArr[a] = "";
+  }
+  return newArr;
+}
+function boradArrayConstractor(size) {
+  //push new array in boradArr
+  for (i = 0; i < size; i++) {
+    boradArr[i] = newArray(size);
+  }
+}
+function click() {
+  boradArr[this.id[0]][this.id[1]] = "x";
+  console.log(boradArr);
+}
+function craeteCrad(idx) {
+  for (i = 0; i < idx; i++) {
+    const row = document.createElement("span");
+
+    row.className = `col${i}`;
+    for (f = 0; f < idx; f++) {
+      const col = document.createElement("div");
+      col.className = `row${f}`;
+      col.innerText = "X";
+      col.id = `${f}${i}`;
+      col.addEventListener("click", click);
+      row.appendChild(col);
+    }
+    board.appendChild(row);
+  }
+  board.appendChild(row);
+}
+
+function test() {}
+
+craeteCrad(boardSize);
+boradArrayConstractor(boardSize);
 
 // PLAYER REGISTER
-let moveCounter=0;
+let moveCounter = 0;
 
 // ALTERNATE PLAYERS
 function alternatePlayers(startPlayer, secondPlayer, moveCount) {
@@ -21,7 +65,7 @@ function checkWin(board) {
   }
 
   function checkEqual(board) {
-    board.forEace((row) => {
+    board.map((row) => {
       equalElements(row);
     });
   }
@@ -41,6 +85,10 @@ function checkWin(board) {
 }
 
 function match() {}
+
+let restart = document.querySelector(".playAgain");
+
+function playAgain() {}
 
 function game() {
   alternatePlayers();
