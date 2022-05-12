@@ -70,7 +70,16 @@ function checkWin(board) {
   equalElements(secDiag);
 }
 
-function match() {}
+function match() {
+  
+}
+
+let restart=document.querySelector(".playAgain");
+
+
+function playAgain(){
+  
+}
 
 function game() {
   alternatePlayers();
