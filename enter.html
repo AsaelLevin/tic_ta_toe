@@ -19,21 +19,37 @@
       <h1><p id="title">WELCOME TO TIC-TAC-TOE GAME!</p></h1>
     </header>
     <div class="screen">
+      <form action="index.html" method="get">
       <label><span>What size of board would you like?</span></label>
       <input
         type="range"
         name="rangeInput"
         min="3"
         max="10"
+        value="3"
         onchange="updateTextInput(this.value);"
       />
-      <input type="number" id="textInput" value="" min="3" max="10" /><br />
+      <input type="number" id="boardSize" value="3" min="3" max="10" /><br />
+     
+      
       <label><span>Player1 name:</span></label>
-      <input type="text" id="player1" /><br />
+      <input type="text" id="player1" onchange="users()"/><br>
+ 
       <label><span>Player2 name:</span></label>
-      <input type="text" id="player2" /><br />
-      <input type="button" value="submit" />
+      <input type="text" id="player2" onchange="users2()" /><br>
+      
+      <fieldset>
+        <legend>player 1: please Select X or O</legend>
+        <div>
+              <input type="radio" name="radioXO" id="xo" value="X" checked><label id="xo" for="xo">play as X   </label>
+            </div>
+            <div>
+              <input type="radio" name="radioXO" id="xo1" value="O" ><label id="xo1" for="xo1">play as O   </label>
+            </div>
+            </fieldset><br />      <br />
+      <input type="submit" value="submit" />
+    </form>
     </div>
-    <script src="enter.js"></script>
+    <script src="tic-tac-toe.js"></script>
   </body>
 </html>
