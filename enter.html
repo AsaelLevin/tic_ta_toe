@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="enter.css">
+    <link rel="stylesheet" href="enter.css" />
   </head>
   <body>
     <header>
@@ -20,12 +20,18 @@
     </header>
     <div class="screen">
       <label><span>What size of board would you like?</span></label>
-      <input type="range" name="rangeInput" min="3" max="10" onchange="updateTextInput(this.value);">
-<input type="number" id="textInput" value=""><br>
-      <label><span>enter player1 name</span></label>
+      <input
+        type="range"
+        name="rangeInput"
+        min="3"
+        max="10"
+        onchange="updateTextInput(this.value);"
+      />
+      <input type="number" id="textInput" value="" min="3" max="10" /><br />
+      <label><span>Player1 name:</span></label>
       <input type="text" id="player1" /><br />
-      <label><span>enter player2 name</span></label>
-      <input type="text" id="player1" /><br />
+      <label><span>Player2 name:</span></label>
+      <input type="text" id="player2" /><br />
       <input type="button" value="submit" />
     </div>
     <script src="enter.js"></script>

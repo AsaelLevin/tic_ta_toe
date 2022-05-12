@@ -1,6 +1,7 @@
 // BOARD
 
 // PLAYER REGISTER
+let moveCounter=0;
 
 // ALTERNATE PLAYERS
 function alternatePlayers(startPlayer, secondPlayer, moveCount) {
@@ -9,7 +10,7 @@ function alternatePlayers(startPlayer, secondPlayer, moveCount) {
   return currentPlayer;
 }
 // This function returns the symbol of the winner
-function checkWin(board, n) {
+function checkWin(board) {
   // n is the matrix dimension
   // This function checks for rows with equal elemnts
   function equalElements(row) {
@@ -34,6 +35,7 @@ function checkWin(board, n) {
   // Make an array of the diagonals
   let mainDiag = board.map((col, ind) => col[ind++]);
   equalElements(mainDiag);
+  let n = board[0].length;
   let secDiag = board.map((col, ind) => col[n - ind++]);
   equalElements(secDiag);
 }
