@@ -1,7 +1,7 @@
 // BOARD
 
 // PLAYER REGISTER
-let moveCounter=0;
+let moveCounter = 0;
 
 // ALTERNATE PLAYERS
 function alternatePlayers(startPlayer, secondPlayer, moveCount) {
@@ -11,6 +11,7 @@ function alternatePlayers(startPlayer, secondPlayer, moveCount) {
 }
 // This function returns the symbol of the winner
 function checkWin(board) {
+  debugger;
   // n is the matrix dimension
   // This function checks for rows with equal elemnts
   function equalElements(row) {
@@ -21,7 +22,7 @@ function checkWin(board) {
   }
 
   function checkEqual(board) {
-    board.forEace((row) => {
+    board.array.fo((row) => {
       equalElements(row);
     });
   }
@@ -39,7 +40,12 @@ function checkWin(board) {
   let secDiag = board.map((col, ind) => col[n - ind++]);
   equalElements(secDiag);
 }
-
+let arr = [
+  [1, 2, 3],
+  [3, 3, 3],
+  [6, 7, 8],
+];
+checkWin(arr);
 function match() {}
 
 function game() {
