@@ -36,7 +36,6 @@ function craeteCrad(idx) {
     }
     board.appendChild(row);
   }
-  board.appendChild(row);
 }
 
 function test() {}
@@ -94,14 +93,16 @@ function game() {
   alternatePlayers();
 }
 function getUrlData() {
-  let playersNames = [],
+  let gameData = [],
     hash;
   let hashes = window.location.href
     .slice(window.location.href.indexOf("?") + 1)
     .split("&");
   for (let i = 0; i < hashes.length; i++) {
     hash = hashes[i].split("=");
-    playersNames[hash[0]] = hash[1];
+    gameData[hash[0]] = hash[1];
   }
-  return playersNames;
+  return gameData;
 }
+
+let gameData = getUrlData();
