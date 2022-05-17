@@ -97,3 +97,15 @@ function playAgain() { }
 function game() {
     alternatePlayers();
 }
+function getUrlData() {
+  let playersNames = [],
+    hash;
+  let hashes = window.location.href
+    .slice(window.location.href.indexOf("?") + 1)
+    .split("&");
+  for (let i = 0; i < hashes.length; i++) {
+    hash = hashes[i].split("=");
+    playersNames[hash[0]] = hash[1];
+  }
+  return playersNames;
+}
