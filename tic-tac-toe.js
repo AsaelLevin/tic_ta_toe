@@ -4,6 +4,7 @@ let boardSize = gameData.rangeInput;
 let boradArr = [];
 const board = document.getElementById("board");
 
+
 function newArray(size) {
     //genert new array and return
     const newArr = [];
@@ -19,19 +20,28 @@ function boradArrayConstractor(size) {
     }
 }
 function click() {
-    boradArr[this.id[0]][this.id[1]] = "x"
-    console.log(boradArr);
+
     this.removeEventListener('click', click)
+    let currentPlayer = alternatePlayers(moveCounter);
+    if (moveCounter % 2 == 0) {
+        boradArr[this.id[0]][this.id[1]] = "X"
+        this.innerText = "X"
+    } else {
+        boradArr[this.id[0]][this.id[1]] = "O";
+        this.innerText = "O"
+    }
+    console.log(boradArr);
+    moveCounter++;
 }
 function craeteCrad(idx) {
     for (i = 0; i < idx; i++) {
         const row = document.createElement("span")
 
-        row.className = `col${i}`
+        row.className = `row flex-nowrap`
         for (f = 0; f < idx; f++) {
             const col = document.createElement("div")
-            col.className = `row${f}`
-            col.innerText = "X"
+            col.className = `col-3 divi`
+            col.innerText = ""
             col.id = `${f}${i}`
             col.addEventListener('click', click)
             row.appendChild(col)
@@ -53,9 +63,10 @@ boradArrayConstractor(boardSize);
 let moveCounter = 0;
 
 // ALTERNATE PLAYERS
-function alternatePlayers(startPlayer, secondPlayer, moveCount) {
+function alternatePlayers(moveCount) {
     let currentPlayer;
-    currentPlayer = moveCount / 2 == 0 ? startPlayer : secondPlayer;
+    let isEven = moveCount % 2;
+    currentPlayer = isEven ? gameData.name1 : gameData.name2;
     return currentPlayer;
 }
 // This function returns the symbol of the winner
