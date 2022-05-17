@@ -93,17 +93,15 @@ function playAgain() {}
 function game() {
   alternatePlayers();
 }
-// activ range onchenge
-function updateTextInput(val) {
-  document.getElementById("textInput").value = val;
+function getUrlData() {
+  let playersNames = [],
+    hash;
+  let hashes = window.location.href
+    .slice(window.location.href.indexOf("?") + 1)
+    .split("&");
+  for (let i = 0; i < hashes.length; i++) {
+    hash = hashes[i].split("=");
+    playersNames[hash[0]] = hash[1];
+  }
+  return playersNames;
 }
-
-let users = (str) => {
- let player1 = document.getElementById("player1").value;
-  console.log(player1);
-};
-let users2 = (str) => {
- let player2 = document.getElementById("player2").value;
-  console.log(player2);
-};
-let sizeBoard = document.getElementById("boardSize");
