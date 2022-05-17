@@ -93,7 +93,6 @@ function playAgain() {}
 function game() {
   alternatePlayers();
 }
-<<<<<<< HEAD
 function getUrlData() {
   let playersNames = [],
     hash;
@@ -106,19 +105,3 @@ function getUrlData() {
   }
   return playersNames;
 }
-=======
-// activ range onchenge
-function updateTextInput(val) {
-  document.getElementById("textInput").value = val;
-}
-
-let users = (str) => {
- let player1 = document.getElementById("player1").value;
-  console.log(player1);
-};
-let users2 = (str) => {
- let player2 = document.getElementById("player2").value;
-  console.log(player2);
-};
-let sizeBoard = document.getElementById("boardSize");
->>>>>>> fdc798bed0d8f8df2f1642e2377c02141df5b77d
