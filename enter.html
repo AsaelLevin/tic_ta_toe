@@ -19,12 +19,14 @@
       <h1><p id="title">WELCOME TO TIC-TAC-TOE GAME!</p></h1>
     </header>
     <div class="screen">
+      <form action="index.html" method="get">
       <label><span>What size of board would you like?</span></label>
       <input
         type="range"
         name="rangeInput"
         min="3"
         max="10"
+        value="3"
         onchange="updateTextInput(this.value);"
       />
       <form action="index.html" method="get">
@@ -42,6 +44,6 @@
             </div>
           </form>
     </div>
-    <script src="enter.js"></script>
+    <script src="tic-tac-toe.js"></script>
   </body>
 </html>
