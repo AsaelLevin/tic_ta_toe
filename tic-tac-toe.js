@@ -1,16 +1,18 @@
 // BOARD
 let boardSize = 3;
-let boradArr = []
+let boradArr = [];
 const board = document.getElementById("board");
 
-function newArray(size) { //genert new array and return 
-    const newArr = []
+function newArray(size) {
+    //genert new array and return
+    const newArr = [];
     for (a = 0; a < size; a++) {
-        newArr[a] = ""
+        newArr[a] = "";
     }
     return newArr;
 }
-function boradArrayConstractor(size) {//push new array in boradArr
+function boradArrayConstractor(size) {
+    //push new array in boradArr
     for (i = 0; i < size; i++) {
         boradArr[i] = newArray(size);
     }
@@ -35,9 +37,10 @@ function craeteCrad(idx) {
         }
         board.appendChild(row);
     }
-    board.appendChild(row);
+
 }
 
+function test() { }
 
 
 
@@ -66,7 +69,7 @@ function checkWin(board) {
     }
 
     function checkEqual(board) {
-        board.forEace((row) => {
+        board.map((row) => {
             equalElements(row);
         });
     }
@@ -85,16 +88,11 @@ function checkWin(board) {
     equalElements(secDiag);
 }
 
-function match() {
-
-}
+function match() { }
 
 let restart = document.querySelector(".playAgain");
 
-
-function playAgain() {
-
-}
+function playAgain() { }
 
 function game() {
     alternatePlayers();
