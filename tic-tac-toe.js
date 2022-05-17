@@ -1,5 +1,6 @@
 // BOARD
-let boardSize = 3;
+let gameData = getUrlData();
+let boardSize = gameData.rangeInput;
 let boradArr = [];
 const board = document.getElementById("board");
 
@@ -20,6 +21,7 @@ function boradArrayConstractor(size) {
 function click() {
     boradArr[this.id[0]][this.id[1]] = "x"
     console.log(boradArr);
+    this.removeEventListener('click', click)
 }
 function craeteCrad(idx) {
     for (i = 0; i < idx; i++) {
@@ -37,7 +39,6 @@ function craeteCrad(idx) {
         }
         board.appendChild(row);
     }
-
 }
 
 function test() { }
@@ -98,14 +99,16 @@ function game() {
     alternatePlayers();
 }
 function getUrlData() {
-  let playersNames = [],
-    hash;
-  let hashes = window.location.href
-    .slice(window.location.href.indexOf("?") + 1)
-    .split("&");
-  for (let i = 0; i < hashes.length; i++) {
-    hash = hashes[i].split("=");
-    playersNames[hash[0]] = hash[1];
-  }
-  return playersNames;
+    let gameData = [],
+        hash;
+    let hashes = window.location.href
+        .slice(window.location.href.indexOf("?") + 1)
+        .split("&");
+    for (let i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split("=");
+        gameData[hash[0]] = hash[1];
+    }
+    return gameData;
 }
+
+
