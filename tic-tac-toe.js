@@ -2,6 +2,7 @@
 let boardSize = 3;
 let boradArr = [];
 const board = document.getElementById("board");
+let gameData = getUrlData();
 
 function newArray(size) {
   //genert new array and return
@@ -18,8 +19,10 @@ function boradArrayConstractor(size) {
   }
 }
 function click() {
+  let currentPlayer = alternatePlayers(moveCounter);
   boradArr[this.id[0]][this.id[1]] = "x";
   console.log(boradArr);
+  moveCounter++;
 }
 function craeteCrad(idx) {
   for (i = 0; i < idx; i++) {
@@ -47,9 +50,10 @@ boradArrayConstractor(boardSize);
 let moveCounter = 0;
 
 // ALTERNATE PLAYERS
-function alternatePlayers(startPlayer, secondPlayer, moveCount) {
+function alternatePlayers(moveCount) {
   let currentPlayer;
-  currentPlayer = moveCount / 2 == 0 ? startPlayer : secondPlayer;
+  let isEven = moveCount % 2;
+  currentPlayer = isEven ? gameData.name1 : gameData.name2;
   return currentPlayer;
 }
 // This function returns the symbol of the winner
@@ -89,9 +93,7 @@ let restart = document.querySelector(".playAgain");
 
 function playAgain() {}
 
-function game() {
-  alternatePlayers();
-}
+function game() {}
 function getUrlData() {
   let gameData = [],
     hash;
@@ -104,5 +106,3 @@ function getUrlData() {
   }
   return gameData;
 }
-
-let gameData = getUrlData();
