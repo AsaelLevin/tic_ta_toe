@@ -1,6 +1,6 @@
 // BOARD
 let boardSize = 3;
-let boradArr = [];
+let boardArr = [];
 const board = document.getElementById("board");
 let gameData = getUrlData();
 
@@ -15,14 +15,19 @@ function newArray(size) {
 function boradArrayConstractor(size) {
   //push new array in boradArr
   for (i = 0; i < size; i++) {
-    boradArr[i] = newArray(size);
+    boardArr[i] = newArray(size);
   }
 }
 function click() {
   let currentPlayer = alternatePlayers(moveCounter);
-  boradArr[this.id[0]][this.id[1]] = "x";
-  console.log(boradArr);
+  boardArr[this.id[0]][this.id[1]] = "x";
+  console.log(boardArr);
   moveCounter++;
+  let checkInd = Number(gameData.rangeInput) * 2 - 1;
+  if (moveCounter >= checkInd) {
+    return checkWin(boardArr);
+  }
+  return currentPlayer;
 }
 function craeteCrad(idx) {
   for (i = 0; i < idx; i++) {
@@ -41,8 +46,6 @@ function craeteCrad(idx) {
   }
 }
 
-function test() {}
-
 craeteCrad(boardSize);
 boradArrayConstractor(boardSize);
 
@@ -56,8 +59,13 @@ function alternatePlayers(moveCount) {
   currentPlayer = isEven ? gameData.name1 : gameData.name2;
   return currentPlayer;
 }
+
+function win(winner) {
+  alert(winner);
+}
 // This function returns the symbol of the winner
 function checkWin(board) {
+  let isWin = null;
   // n is the matrix dimension
   // This function checks for rows with equal elemnts
   function equalElements(row) {
@@ -69,7 +77,10 @@ function checkWin(board) {
 
   function checkEqual(board) {
     board.map((row) => {
-      equalElements(row);
+      isWin = equalElements(row);
+      if (isWin) {
+        win(isWin);
+      }
     });
   }
 
@@ -81,19 +92,24 @@ function checkWin(board) {
 
   // Make an array of the diagonals
   let mainDiag = board.map((col, ind) => col[ind++]);
-  equalElements(mainDiag);
-  let n = board[0].length;
+  isWin = equalElements(mainDiag);
+  if (isWin) {
+    win(isWin);
+  }
+  let n = board[0].length - 1;
   let secDiag = board.map((col, ind) => col[n - ind++]);
-  equalElements(secDiag);
+  isWin = equalElements(secDiag);
+  if (isWin) {
+    win(isWin);
+  }
 }
 
 function match() {}
 
-let restart = document.querySelector(".playAgain");
+function playAgain() {
+  let restart = document.querySelector(".playAgain");
+}
 
-function playAgain() {}
-
-function game() {}
 function getUrlData() {
   let gameData = [],
     hash;
