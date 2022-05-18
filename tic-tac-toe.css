@@ -1,11 +1,15 @@
 
+
 div {
+    
     border: 6px solid #023047;
-    padding:50px;
-    margin: 20px 20px;
-    display: flex;
-    flex-wrap: wrap;
+    margin: 20px;
+
+    border-radius: 20px;
+    color: rgb(148, 30, 245);
+    font-size: 150 px;
 }
+
 
 body{
     background-color: #023047;
@@ -19,5 +23,8 @@ h1{
     
 }
 
-
+.divi{
+    height: 100px;
+    width: 100px;
+}
 

@@ -39,7 +39,7 @@ function craeteCrad(idx) {
   // board.appendChild(row);
 }
 
-function test() {}
+function test() { }
 
 craeteCrad(boardSize);
 boradArrayConstractor(boardSize);
@@ -84,11 +84,11 @@ function checkWin(board) {
   equalElements(secDiag);
 }
 
-function match() {}
+function match() { }
 
 let restart = document.querySelector(".playAgain");
 
-function playAgain() {}
+function playAgain() { }
 
 function game() {
   alternatePlayers();
@@ -110,5 +110,5 @@ function getUrlData() {
 
 // function for the range in enter.html
 function updateTextInput(val) {
-  document.getElementById("out_slider_value").innerHTML =`board size ${val} x ${val}`;
+  document.getElementById("out_slider_value").innerHTML = `board size ${val} x ${val}`;
 }
