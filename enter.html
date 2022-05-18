@@ -20,58 +20,19 @@
     </header>
     <div class="screen">
       <form action="index.html" method="get">
-<<<<<<< HEAD
-        <label><span>What size of board would you like?</span></label>
-        <input
-          type="range"
-          name="rangeInput"
-          min="3"
-          max="10"
-          value="3"
-          onchange="updateTextInput(this.value);"
-        />
-        <input type="number" id="boardSize" value="3" min="3" max="10" /><br />
-
-        <label><span>Player1 name:</span></label>
-        <input type="text" id="player1" onchange="users()" /><br />
-
-        <label><span>Player2 name:</span></label>
-        <input type="text" id="player2" onchange="users2()" /><br />
-
-        <fieldset>
-          <legend>player 1: please Select X or O</legend>
-          <div>
-            <input
-              type="radio"
-              name="radioXO"
-              id="xo"
-              value="X"
-              checked
-            /><label id="xo" for="xo">play as X </label>
-          </div>
-          <div>
-            <input type="radio" name="radioXO" id="xo1" value="O" /><label
-              id="xo1"
-              for="xo1"
-              >play as O
-            </label>
-          </div>
-        </fieldset>
-        <br />
-        <br />
-        <input type="submit" value="submit" />
-      </form>
-=======
+        <div class="slidecontainer">
       <label><span>What size of board would you like?</span></label>
       <input
+      id="slider_value"
         type="range"
+        class="slider"
         name="rangeInput"
         min="3"
         max="10"
         value="3"
         onchange="updateTextInput(this.value);"
-      />
-      <form action="index.html" method="get">
+      /></div>
+      <label><span id="out_slider_value" style="color:red;"></span></label>
         <div class="register">
           <div class="player1">
               <label for="name1">Player 1 enter your name: </label>
@@ -85,7 +46,6 @@
               <button type="submit">Start Game</button>
             </div>
           </form>
->>>>>>> f04c47b486928ef818e74cd5d9e8dba1d9c85760
     </div>
     <script src="tic-tac-toe.js"></script>
   </body>

@@ -36,7 +36,7 @@ function craeteCrad(idx) {
     }
     board.appendChild(row);
   }
-  board.appendChild(row);
+  // board.appendChild(row);
 }
 
 function test() {}
@@ -104,4 +104,11 @@ function getUrlData() {
     playersNames[hash[0]] = hash[1];
   }
   return playersNames;
+}
+
+
+
+// function for the range in enter.html
+function updateTextInput(val) {
+  document.getElementById("out_slider_value").innerHTML =`board size ${val} x ${val}`;
 }
