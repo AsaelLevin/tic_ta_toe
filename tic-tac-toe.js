@@ -151,3 +151,25 @@ function match() {}
 function playAgain() {
   let restart = document.querySelector(".playAgain");
 }
+function game() {
+  alternatePlayers();
+}
+function getUrlData() {
+  let playersNames = [],
+    hash;
+  let hashes = window.location.href
+    .slice(window.location.href.indexOf("?") + 1)
+    .split("&");
+  for (let i = 0; i < hashes.length; i++) {
+    hash = hashes[i].split("=");
+    playersNames[hash[0]] = hash[1];
+  }
+  return playersNames;
+}
+
+
+
+// function for the range in enter.html
+function updateTextInput(val) {
+  document.getElementById("out_slider_value").innerHTML =`board size ${val} x ${val}`;
+}
