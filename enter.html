@@ -20,16 +20,19 @@
     </header>
     <div class="screen">
       <form action="index.html" method="get">
+        <div class="slidecontainer">
       <label><span>What size of board would you like?</span></label>
       <input
+      id="slider_value"
         type="range"
+        class="slider"
         name="rangeInput"
         min="3"
         max="10"
         value="3"
         onchange="updateTextInput(this.value);"
-      />
-      <form action="index.html" method="get">
+      /></div>
+      <label><span id="out_slider_value" style="color:red;"></span></label>
         <div class="register">
           <div class="player1">
               <label for="name1">Player 1 enter your name: </label>

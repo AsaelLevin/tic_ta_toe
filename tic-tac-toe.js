@@ -9,12 +9,12 @@ function currentPlayerfanc(name) {
 }
 
 function newArray(size) {
-    //genert new array and return
-    const newArr = [];
-    for (a = 0; a < size; a++) {
-        newArr[a] = "";
-    }
-    return newArr;
+  //genert new array and return
+  const newArr = [];
+  for (a = 0; a < size; a++) {
+    newArr[a] = "";
+  }
+  return newArr;
 }
 function boradArrayConstractor(size) {
     //push new array in boradArr
@@ -61,7 +61,12 @@ function craeteCrad(idx) {
         }
         board.appendChild(row);
     }
-}
+    board.appendChild(row);
+  }
+  // board.appendChild(row);
+
+
+function test() { }
 
 craeteCrad(boardSize);
 boradArrayConstractor(boardSize);
@@ -70,15 +75,10 @@ boradArrayConstractor(boardSize);
 let moveCounter = 0;
 
 // ALTERNATE PLAYERS
-function alternatePlayers(moveCount) {
-    let currentPlayer;
-    let isEven = moveCount % 2;
-    currentPlayer = isEven ? gameData.name1 : gameData.name2;
-    return currentPlayer;
-}
-
-function win(winner) {
-    alert(winner);
+function alternatePlayers(startPlayer, secondPlayer, moveCount) {
+  let currentPlayer;
+  currentPlayer = moveCount / 2 == 0 ? startPlayer : secondPlayer;
+  return currentPlayer;
 }
 // This function returns the symbol of the winner
 function checkWin(board) {
@@ -119,8 +119,13 @@ function checkWin(board) {
             win(isWin);
         }
     }
+  }
 
-    function match() { }
+  function checkEqual(board) {
+    board.map((row) => {
+      equalElements(row);
+    });
+  }
 
     function playAgain() {
         let restart = document.querySelector(".playAgain");
@@ -138,18 +143,7 @@ function checkWin(board) {
         }
         return gameData;
     }
-}
-function getUrlData() {
-    let gameData = [],
-        hash;
-    let hashes = window.location.href
-        .slice(window.location.href.indexOf("?") + 1)
-        .split("&");
-    for (let i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split("=");
-        gameData[hash[0]] = hash[1];
-    }
-    return gameData;
-}
+
+
 
 
