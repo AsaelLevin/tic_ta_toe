@@ -1,9 +1,12 @@
 // BOARD
 let gameData = getUrlData();
-let boardSize = gameData.rangeInput;
-let boradArr = [];
+let boardSize = Number(gameData.rangeInput);
+let boardArr = [];
 const board = document.getElementById("board");
-
+const currentPlayer = document.getElementById("currentPlayer")
+function currentPlayerfanc(name) {
+    currentPlayer.innerHTML = `Current Player: ${name}`;
+}
 
 function newArray(size) {
     //genert new array and return
@@ -16,48 +19,42 @@ function newArray(size) {
 function boradArrayConstractor(size) {
     //push new array in boradArr
     for (i = 0; i < size; i++) {
-        boradArr[i] = newArray(size);
+        boardArr[i] = newArray(size);
     }
 }
 function click() {
 
     this.removeEventListener('click', click)
     let currentPlayer = alternatePlayers(moveCounter);
+    currentPlayerfanc(alternatePlayers(moveCounter))//input player name to screen
     if (moveCounter % 2 == 0) {
-        boradArr[this.id[0]][this.id[1]] = "X"
+        boardArr[this.id[0]][this.id[1]] = "X"
         this.innerText = "X"
     } else {
-        boradArr[this.id[0]][this.id[1]] = "O";
+        boardArr[this.id[0]][this.id[1]] = "O";
         this.innerText = "O"
     }
-    console.log(boradArr);
-    moveCounter++;
-    //push new array in boradArr
-    for (i = 0; i < size; i++) {
-        boardArr[i] = newArray(size);
-    }
-}
-function click() {
-    let currentPlayer = alternatePlayers(moveCounter);
-    boardArr[this.id[0]][this.id[1]] = "x";
     console.log(boardArr);
     moveCounter++;
+
+
     let checkInd = Number(gameData.rangeInput) * 2 - 1;
     if (moveCounter >= checkInd) {
         return checkWin(boardArr);
     }
     return currentPlayer;
 }
+
+
 function craeteCrad(idx) {
     for (i = 0; i < idx; i++) {
         const row = document.createElement("span")
-
         row.className = `row flex-nowrap`
         for (f = 0; f < idx; f++) {
             const col = document.createElement("div")
             col.className = `col-3 divi`
             col.innerText = ""
-            col.id = `${f}${i}`
+            col.id = `${i}${f}`
             col.addEventListener('click', click)
             row.appendChild(col)
 
@@ -94,8 +91,8 @@ function checkWin(board) {
             return [...set1][0];
         }
 
-        function checkEqual(board) {
-            board.map((row) => {
+        function checkEqual(board1) {
+            board1.map((row) => {
                 isWin = equalElements(row);
                 if (isWin) {
                     win(isWin);
@@ -104,19 +101,19 @@ function checkWin(board) {
         }
 
         // Check rows
-        checkEqual(board);
+        checkEqual(board1);
         // Transpose the board to iterate over the columns
-        let boardTrans = board[0].map((col, ind) => board.map((row) => row[ind]));
+        let boardTrans = board1[0].map((col, ind) => board1.map((row) => row[ind]));
         checkEqual(boardTrans);
 
         // Make an array of the diagonals
-        let mainDiag = board.map((col, ind) => col[ind++]);
+        let mainDiag = board1.map((col, ind) => col[ind++]);
         isWin = equalElements(mainDiag);
         if (isWin) {
             win(isWin);
         }
         let n = board[0].length - 1;
-        let secDiag = board.map((col, ind) => col[n - ind++]);
+        let secDiag = board1.map((col, ind) => col[n - ind++]);
         isWin = equalElements(secDiag);
         if (isWin) {
             win(isWin);
@@ -141,17 +138,18 @@ function checkWin(board) {
         }
         return gameData;
     }
-    function getUrlData() {
-        let gameData = [],
-            hash;
-        let hashes = window.location.href
-            .slice(window.location.href.indexOf("?") + 1)
-            .split("&");
-        for (let i = 0; i < hashes.length; i++) {
-            hash = hashes[i].split("=");
-            gameData[hash[0]] = hash[1];
-        }
-        return gameData;
-    }
-
 }
+function getUrlData() {
+    let gameData = [],
+        hash;
+    let hashes = window.location.href
+        .slice(window.location.href.indexOf("?") + 1)
+        .split("&");
+    for (let i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split("=");
+        gameData[hash[0]] = hash[1];
+    }
+    return gameData;
+}
+
+
