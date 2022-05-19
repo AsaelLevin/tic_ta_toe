@@ -21,7 +21,7 @@ function click() {
   boradArr[this.id[0]][this.id[1]] = "x";
   console.log(boradArr);
 }
-function craeteCrad(idx) {
+function createCard(idx) {
   for (i = 0; i < idx; i++) {
     const row = document.createElement("span");
 
@@ -41,7 +41,7 @@ function craeteCrad(idx) {
 
 function test() { }
 
-craeteCrad(boardSize);
+createCard(boardSize);
 boradArrayConstractor(boardSize);
 
 // PLAYER REGISTER
