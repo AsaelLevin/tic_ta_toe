@@ -1,18 +1,4 @@
 
-
-div {
-    
-    border: 6px solid #023047;
-    margin: 10px;
-    border-radius: 5px;
-    color: #ffd23f;
-    font-size: 150 px;
-}
-
-
-.container{
-    background-color: #ee4266;
-}
 h1{
     color: #0ead69;
     font-family: 'Josefin Sans', sans-serif;
@@ -22,22 +8,47 @@ h1{
     
 }
 
-.divi{
-    height: 100px;
-    width: 100px;
-    font-size: 50px;
-    text-align: center;
-    color: #ffd23f;
-}
 
-.body {
-    color: black;
-}
 
 .currentPlayer{
-   
+    border:none;
+   color:rgb(136, 0, 255);
     font-size: 20px;
     text-align: center;
-    color: black    ;
     padding: auto;
+}
+
+#board{
+    justify-content: center;
+ padding: 10px;
+ margin: 10px;
+ background-color: blueviolet;
+ overflow: hidden;
+ 
+}
+
+.row{
+    justify-content: center;
+    color: #000;
+    border:1px solid black;
+    height:100%;
+    width:100%;
+    display: flex;
+}
+
+.row div{
+    height: 100px;
+    width:100px;
+}
+.card{
+    border:1px solid rgb(145, 255, 0);
+    justify-content: center;
+  
+    float: left;
+}
+
+.main{
+    background-color: #0ead69;
+    justify-content: center;
+    align-items: center;
 }
