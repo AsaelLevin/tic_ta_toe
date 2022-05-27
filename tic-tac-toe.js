@@ -16,11 +16,14 @@ const [gameView, openningScreen] = [
   document.querySelector(".game"),
   document.querySelector(".openning"),
 ];
-
+const restart = () => {};
 const chooseSign = () => {};
 
 const validity = (e) => {
   gameData[e.target.name] = e.target.value;
+  if (e.target.id != "slider_value") {
+    document.getElementById(e.target.id).setAttribute("readonly", "true");
+  }
   if (!!gameData.name1 && !!gameData.name2) {
     //  chooseSign()
     document.getElementById("entryBtn").disabled = false;
@@ -154,8 +157,4 @@ function checkWin(board) {
   if (isWin) {
     win(isWin);
   }
-}
-
-function playAgain() {
-  let restart = document.querySelector(".playAgain");
 }
