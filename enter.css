@@ -2,59 +2,83 @@
     text-align: center;
 }
 #title{
+  font-family:'Ubuntu', sans-serif;
         text-align: center;
 }
 
-#textInput{
-    max-width: 40px;
-}
 .slidecontainer {
     
     margin-left: 25%;
-    width: 50%; /* Width of the outside container */
+    width: 50%; 
   }
   
-  /* The slider itself */
+
   .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
+    -webkit-appearance: none;  
     appearance: none;
-    width: 100%; /* Full-width */
-    height: 25px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: 0.5s; /* 0.2 seconds transition on hover */
+    width: 100%; 
+    height: 25px; 
+    background: #ffbe0b; 
+    outline: none; 
+    opacity: 0.7; 
+    -webkit-transition: 0.5s; 
     transition: opacity 0.5s;
   }
   
-  /* Mouse-over effects */
+
   .slider:hover {
-    opacity:1; /* Fully shown on mouse-over */
+    opacity:1; 
     border-radius: 5px;
+    
     
   }
   
-  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
   .slider::-webkit-slider-thumb {
-    -webkit-appearance:none ; /* Override default look */
+    -webkit-appearance:none ; 
     appearance: none;
-   
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #04AA6D; /* Green background */
-    cursor:pointer/* Cursor on hover */
-
+    width: 25px; 
+    height: 25px; 
+    background: #ff006e; 
+    cursor:pointer;
+    transition: transform 0.3s, border-radius 0.3s;
   }
   
 
   .slider::-webkit-slider-thumb:hover {
-    -webkit-appearance:none ; /* Override default look */
-    appearance: none;
-   border-radius: 50%;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #04AA6D; /* Green background */
-    cursor:pointer/* Cursor on hover */
-
+  
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%; 
+      background: #ff006e;
+      cursor: pointer;
+      box-shadow: 0 0 0.5em  #ff006e;
+      transform: translateY(-2px) scale(1.5);
   }
   
+
+  #entryBtn{
+    font-family: 'Ubuntu', sans-serif;
+    background:none;
+    color:#fb5607; 
+    border: 2px solid;
+    padding: 1em 2em;
+    font-size: 1.2em;
+    transition: transform 0.3s, border-radius 0.3s;
+    /* box-shadow:0 0.5em 0.5em -0.4em #000000; */
+}
+
+#entryBtn:hover{
+    border-color: #ffbe0b;
+    color:white;
+    text-shadow:2px 2px 2px #000;
+    /* box-shadow:0 0.5em 0.5em -0.4em #ffbe0b; */
+    box-shadow:0 0.5em 0.5em -0.4em #000000;
+    cursor: pointer;
+    border-radius: 20%;
+    transform: translateY(-2px) scale(1.1);
+}
+body{
+  background-color: #3a86ff;
+}
