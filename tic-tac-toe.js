@@ -1,12 +1,15 @@
 let gameData = {
   boardSize: 3,
-  start: false,
   name1: null,
   name2: null,
+  start: false,
 };
-
+const form = document.querySelector("form");
+form.addEventListener("change", (e) => validity(e));
 document.getElementById("entryBtn").disabled = true;
-
+const boardSizeDisplay = (size) => {
+  document.getElementById("board_size").innerText = `${size} X ${size}`;
+};
 let boardArr = [];
 
 const [gameView, openningScreen] = [
@@ -14,11 +17,18 @@ const [gameView, openningScreen] = [
   document.querySelector(".openning"),
 ];
 
-const validity = () => {
+const chooseSign = () => {};
+
+const validity = (e) => {
+  gameData[e.target.name] = e.target.value;
   if (!!gameData.name1 && !!gameData.name2) {
+    //  chooseSign()
     document.getElementById("entryBtn").disabled = false;
+    console.log("Both are filled");
+    console.log(gameData);
   } else {
-    document.getElementById("entryBtn").disabled = true;
+    console.log("ELSE", "not yet");
+    console.log(gameData);
   }
 };
 
@@ -26,11 +36,16 @@ const show = () => {
   gameView.style.display = !gameData.start ? "none" : "block";
   openningScreen.style.display = gameData.start ? "none" : "block";
 };
-show();
 
+function start() {
+  gameData.start = true;
+  createCard(Number(gameData.boardSize));
+  boardArrayConstractor(Number(gameData.boardSize));
+  currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
+  show();
+}
 const board = document.getElementById("board");
 const currentPlayer = document.getElementById("currentPlayer");
-currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
 
 function currentPlayerfunc(name) {
   currentPlayer.innerHTML = `Current Player: ${name}`;
@@ -44,7 +59,7 @@ function newArray(size) {
   }
   return newArr;
 }
-function boradArrayConstractor(size) {
+function boardArrayConstractor(size) {
   //push new array in boardArr
   for (i = 0; i < size; i++) {
     boardArr[i] = newArray(size);
@@ -64,7 +79,7 @@ function clickbtn1() {
   console.log(boardArr);
   moveCounter++;
 
-  let checkInd = Number(gameData.rangeInput) * 2 - 1;
+  let checkInd = Number(gameData.boardSize) * 2 - 1;
   if (moveCounter >= checkInd) {
     return checkWin(boardArr);
   }
@@ -86,11 +101,6 @@ function createCard(idx) {
     board.appendChild(row);
   }
 }
-
-function test() {}
-
-createCard(gameData.boardSize);
-boradArrayConstractor(gameData.boardSize);
 
 // PLAYER REGISTER
 let moveCounter = 0;
@@ -145,8 +155,6 @@ function checkWin(board) {
     win(isWin);
   }
 }
-
-function match() {}
 
 function playAgain() {
   let restart = document.querySelector(".playAgain");

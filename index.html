@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <title>TIC TAC TOE</title>
-    <div class="game">
+    <div class="game" style="display: none">
   </head>
   <body class="body">
     <header class="header">
@@ -29,31 +29,32 @@
   <h1><p id="title">WELCOME TO TIC-TAC-TOE GAME!</p></h1>
 </header>
 <div class="screen" id="entry">
-  <form>
+  <form >
     <div class="slidecontainer">
   <label><span>What size of board would you like?</span></label>
   <input
   id="slider_value"
-    type="range"
-    class="slider"
-    name="rangeInput"
-    min="3"
-    max="10"
-    value="3"
-    onchange="gameData.boardSize=Number(this.value);"
+  type="range"
+  class="slider"
+  name="boardSize"
+  min="3"
+  max="10"
+  value="3"
+  onchange="boardSizeDisplay(this.value)"
   /></div>
+  <span id="board_size">3 X 3</span>
   <label><span id="out_slider_value" style="color:red;"></span></label>
     <div class="register">
       <div class="player1">
           <label for="name1">Player 1 enter your name: </label>
-          <input type="text" name="name1" id="name1" placeholder="Cosmic Giraffe"  onchange="gameData.name1=this.value" />
+          <input type="text" title="Player name" name="name1" id="name1" placeholder="Cosmic Giraffe" required/>
         </div>
         <div class="player2">
           <label for="name2">Player 2 enter your name: </label>
-          <input type="text" name="name2" id="name2" placeholder="Cheeky Monkey" onchange="gameData.name2=this.value"/>
+          <input type="text" title="Player name" name="name2" id="name2" placeholder="Cheeky Monkey"  required/>
         </div>
         <div class="button">
-          <input type="button" value="Start Game!" id="entryBtn" onclick="gameData.start=true,show()"/>
+          <input type="button" value="Start Game!" id="entryBtn" onclick="start()"/>
         </div>
       </form>
 </div></div>
