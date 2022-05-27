@@ -7,11 +7,12 @@ let gameData = {
 const form = document.querySelector("form");
 form.addEventListener("change", (e) => validity(e));
 document.getElementById("entryBtn").disabled = true;
-const boardSizeDisplay = (size) => {
-  document.getElementById("board_size").innerText = `${size} X ${size}`;
-};
-let boardArr = [];
 
+const slider = document.getElementById("slider_value"),
+  sliderDisp = document.getElementById("board_size");
+slider.oninput = (e) => {
+  sliderDisp.innerText = `${e.target.value} X ${e.target.value}`;
+};
 const [gameView, openningScreen] = [
   document.querySelector(".game"),
   document.querySelector(".openning"),
@@ -28,13 +29,7 @@ const validity = (e) => {
     document.getElementById(e.target.id).setAttribute("readonly", "true");
   }
   if (!!gameData.name1 && !!gameData.name2) {
-    //  chooseSign()
     document.getElementById("entryBtn").disabled = false;
-    console.log("Both are filled");
-    console.log(gameData);
-  } else {
-    console.log("ELSE", "not yet");
-    console.log(gameData);
   }
 };
 
@@ -50,6 +45,8 @@ function start() {
   currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
   show();
 }
+
+let boardArr = [];
 const board = document.getElementById("board");
 const currentPlayer = document.getElementById("currentPlayer");
 
