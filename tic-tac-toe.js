@@ -16,7 +16,10 @@ const [gameView, openningScreen] = [
   document.querySelector(".game"),
   document.querySelector(".openning"),
 ];
-const restart = () => {};
+const restart = () => {
+  gameData.start = false;
+  show();
+};
 const chooseSign = () => {};
 
 const validity = (e) => {
