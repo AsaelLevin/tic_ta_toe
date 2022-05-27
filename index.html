@@ -13,6 +13,8 @@
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Ubuntu&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
     <title>TIC TAC TOE</title>
   </head>
   <body class="body">
@@ -36,7 +38,7 @@
 <div class="screen" id="entry">
   <form >
     <div class="slidecontainer">
-  <label><span>What size of board would you like?</span></label>
+  <label><span>SELECT BOARD SIZE</span></label>
   <input
   id="slider_value"
   type="range"
@@ -47,7 +49,8 @@
   value="3"
   autofocus
   /></div>
-  <span id="board_size">3 X 3</span>
+  <span id="boardSizeDisp"><div id="board_size">3 X 3</div></span>
+
   <label><span id="out_slider_value" style="color:red;"></span></label>
     <div class="register">
       <div class="player1">
