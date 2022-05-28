@@ -115,6 +115,7 @@ input[type=text]:focus {
 }
   #entryBtn:disabled{
     font-family: 'Ubuntu', sans-serif;
+    margin-top: 1em;
     background:none;
     color:#fb5607; 
     border: 2px solid;
@@ -122,8 +123,9 @@ input[type=text]:focus {
     font-size: 1.2em;
   }
 
-#entryBtn:enabled{
+/* #entryBtn:enabled{
   font-family: 'Ubuntu', sans-serif;
+  margin-top: 1em;
   background:none; 
   border: 2px solid;
   padding: 1em 2em;
@@ -131,16 +133,17 @@ input[type=text]:focus {
     border-color: #ffbe0b;
     color:#ffbe0b;
     text-shadow:2px 2px 2px #000;
-    /* box-shadow:0 0.5em 0.5em -0.4em #ffbe0b; */
+    // box-shadow:0 0.5em 0.5em -0.4em #ffbe0b; 
     box-shadow:0 0.5em 0.5em -0.4em #000000;
     border-radius: 20%;
     transition: transform 0.3s, border-radius 0.3s;
     transform: translateY(-2px) scale(1.1);
-}
+} */
 
 #entryBtn:enabled{
   font-family: 'Ubuntu', sans-serif;
   background:none; 
+  margin-top: 1em;
   border: 2px solid;
   padding: 1em 2em;
   font-size: 1.5em;
@@ -153,7 +156,6 @@ input[type=text]:focus {
     box-shadow: 0 0 0 0 rgb(225, 255, 0);
     transform: scale(1);
     animation: pulse 2s infinite;
-   
 }
 
 @keyframes pulse {
