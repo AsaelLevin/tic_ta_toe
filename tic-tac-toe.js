@@ -4,9 +4,10 @@ let gameData = {
   name2: null,
   start: false,
 };
+document.getElementById("entryBtn").disabled = true;
+
 const form = document.querySelector("form");
 form.addEventListener("change", (e) => validity(e));
-document.getElementById("entryBtn").disabled = true;
 
 const slider = document.getElementById("slider_value"),
   sliderDisp = document.getElementById("board_size");
@@ -40,6 +41,8 @@ const show = () => {
 
 function start() {
   gameData.start = true;
+  document.getElementById("body").classList.add("body-g");
+  document.getElementById("body").classList.remove("body-e");
   createCard(Number(gameData.boardSize));
   boardArrayConstractor(Number(gameData.boardSize));
   currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
