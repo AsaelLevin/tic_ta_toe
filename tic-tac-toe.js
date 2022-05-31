@@ -1,24 +1,36 @@
 let gameData = {
   boardSize: 3,
-  start: false,
   name1: null,
   name2: null,
+  start: false,
 };
-
 document.getElementById("entryBtn").disabled = true;
 
-let boardArr = [];
+const form = document.querySelector("form");
+form.addEventListener("change", (e) => validity(e));
 
+const slider = document.getElementById("slider_value"),
+  sliderDisp = document.getElementById("board_size");
+slider.oninput = (e) => {
+  sliderDisp.innerText = `${e.target.value} X ${e.target.value}`;
+};
 const [gameView, openningScreen] = [
   document.querySelector(".game"),
   document.querySelector(".openning"),
 ];
+const restart = () => {
+  gameData.start = false;
+  show();
+};
+const chooseSign = () => {};
 
-const validity = () => {
+const validity = (e) => {
+  gameData[e.target.name] = e.target.value;
+  if (e.target.id != "slider_value") {
+    document.getElementById(e.target.id).setAttribute("readonly", "true");
+  }
   if (!!gameData.name1 && !!gameData.name2) {
     document.getElementById("entryBtn").disabled = false;
-  } else {
-    document.getElementById("entryBtn").disabled = true;
   }
 };
 
@@ -26,11 +38,20 @@ const show = () => {
   gameView.style.display = !gameData.start ? "none" : "block";
   openningScreen.style.display = gameData.start ? "none" : "block";
 };
-show();
 
+function start() {
+  gameData.start = true;
+  document.getElementById("body").classList.add("body-g");
+  document.getElementById("body").classList.remove("body-e");
+  createCard(Number(gameData.boardSize));
+  boardArrayConstractor(Number(gameData.boardSize));
+  currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
+  show();
+}
+
+let boardArr = [];
 const board = document.getElementById("board");
 const currentPlayer = document.getElementById("currentPlayer");
-currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
 
 function currentPlayerfunc(name) {
   currentPlayer.innerHTML = `Current Player: ${name}`;
@@ -44,7 +65,7 @@ function newArray(size) {
   }
   return newArr;
 }
-function boradArrayConstractor(size) {
+function boardArrayConstractor(size) {
   //push new array in boardArr
   for (i = 0; i < size; i++) {
     boardArr[i] = newArray(size);
@@ -64,7 +85,7 @@ function clickbtn1() {
   console.log(boardArr);
   moveCounter++;
 
-  let checkInd = Number(gameData.rangeInput) * 2 - 1;
+  let checkInd = Number(gameData.boardSize) * 2 - 1;
   if (moveCounter >= checkInd) {
     return checkWin(boardArr);
   }
@@ -86,11 +107,6 @@ function createCard(idx) {
     board.appendChild(row);
   }
 }
-
-function test() {}
-
-createCard(gameData.boardSize);
-boradArrayConstractor(gameData.boardSize);
 
 // PLAYER REGISTER
 let moveCounter = 0;
@@ -144,33 +160,4 @@ function checkWin(board) {
   if (isWin) {
     win(isWin);
   }
-}
-
-function match() {}
-
-function playAgain() {
-  let restart = document.querySelector(".playAgain");
-}
-
-function game() {
-  alternatePlayers();
-}
-function getUrlData() {
-  let playersNames = [],
-    hash;
-  let hashes = window.location.href
-    .slice(window.location.href.indexOf("?") + 1)
-    .split("&");
-  for (let i = 0; i < hashes.length; i++) {
-    hash = hashes[i].split("=");
-    playersNames[hash[0]] = hash[1];
-  }
-  return playersNames;
-}
-
-
-
-// function for the range in enter.html
-function updateTextInput(val) {
-  document.getElementById("out_slider_value").innerHTML =`board size ${val} x ${val}`;
 }

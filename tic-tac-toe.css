@@ -1,10 +1,11 @@
 
 h1{
-    color: #0ead69;
-    font-family: 'Josefin Sans', sans-serif;
+    color: #ffbe0b;
+    font-family:'Ubuntu', sans-serif;
     display: flex;
     justify-content: center;
     font-size: 60px;
+    text-shadow:2px 2px 2px #000;
     
 }
 
@@ -52,3 +53,7 @@ h1{
     justify-content: center;
     align-items: center;
 }
+.body-g{
+    background-color: #3a86ff;
+    background-image: url("bg/lightning.png");
+  }
