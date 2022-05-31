@@ -151,6 +151,7 @@ function match() {}
 function playAgain() {
   let restart = document.querySelector(".playAgain");
 }
+
 function game() {
   alternatePlayers();
 }

@@ -1,13 +1,21 @@
-.screen{
-    text-align: center;
+.screen {
+  text-align: center;
+  background-color: #e7ecf192 ;
+  
 }
-#title{
-        text-align: center;
+body {
+  background-image: url("https://www.yo-yoo.co.il/uploads/40115e.png");
+  /* background-color: #cccccc; */
+ }
+
+#title {
+  text-align: center;
 }
 
-#textInput{
-    max-width: 40px;
+#textInput {
+  max-width: 40px;
 }
+
 .slidecontainer {
     
     margin-left: 25%;
