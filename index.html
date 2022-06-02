@@ -23,6 +23,10 @@
     <div class="game" style="display: none">
       <div class="restart">
         <button type="button" name="restart" onclick="restart()">Back to entry page</button>
+      <button type="button" name="saveGame" onclick="saveGame()">save game</button>
+      <button type="button" name="back">back</button>
+      <button type="button" name="OpenSavedGame">Open saved Game</button>
+      <div id="outputt" class="timerClock" value="00:00">00:00</div>
       </div>
     <div class="currentPlayer" id="currentPlayer">Current Player:</div>
     <div class="main">
@@ -54,6 +58,13 @@
       <div class="player1">
           <label for="name1">Player 1 enter your name: </label>
           <input type="text" title="Player name" name="name1" id="name1" placeholder="Cosmic Giraffe" required/>
+         <br>
+          <label for="sign">Player 1 choose sign:</label>
+          <select name="sign" id="sign" >
+            <option value="X">✗</option>
+            <option value="O">😍</option>
+
+          </select>
         </div>
         <div class="player2">
           <label for="name2">Player 2 enter your name: </label>
