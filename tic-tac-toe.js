@@ -4,8 +4,15 @@ let gameData = {
   name2: null,
   start: false,
 };
-document.getElementById("entryBtn").disabled = true;
+let entryBtn = document.getElementById("entryBtn");
 
+entryBtn.disabled = true;
+const inputs = document.querySelectorAll("input");
+inputs.forEach((e) =>
+  e.addEventListener("focus", () => {
+    playSound(3);
+  })
+);
 const form = document.querySelector("form");
 form.addEventListener("change", (e) => validity(e));
 
@@ -13,6 +20,7 @@ const slider = document.getElementById("slider_value"),
   sliderDisp = document.getElementById("board_size");
 slider.oninput = (e) => {
   sliderDisp.innerText = `${e.target.value} X ${e.target.value}`;
+  playSound(4);
 };
 const [gameView, openningScreen] = [
   document.querySelector(".game"),
@@ -30,10 +38,27 @@ const validity = (e) => {
     document.getElementById(e.target.id).setAttribute("readonly", "true");
   }
   if (!!gameData.name1 && !!gameData.name2) {
-    document.getElementById("entryBtn").disabled = false;
+    setTimeout(() => (entryBtn.disabled = false), 1000);
+    playSound(2);
   }
 };
 
+const sounds = [
+  "./sounds/pop.wav",
+  "./sounds/swoosh.wav",
+  "./sounds/entry.wav",
+  "./sounds/sparkle.wav",
+  "./sounds/bloop.wav",
+];
+
+function playSound(soundInd) {
+  const audio = new Audio(sounds[soundInd]);
+  audio.play();
+}
+
+slider.onmouseover = () => {
+  playSound(0);
+};
 const show = () => {
   gameView.style.display = !gameData.start ? "none" : "block";
   openningScreen.style.display = gameData.start ? "none" : "block";
