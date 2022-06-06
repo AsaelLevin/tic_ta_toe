@@ -54,6 +54,9 @@ const setPlayerSymb = (event) => {
     return;
   } else {
     gameData.p2Sym = event;
+    setTimeout(() => (entryBtn.disabled = false), 1000);
+    playSound(2);
+    return;
   }
 };
 
@@ -86,17 +89,10 @@ const chooseSign = (name) => {
 
 const validity = (e) => {
   gameData[e.target.name] = e.target.value;
-
-  if (
-    !!gameData.name1 &&
-    !!gameData.name2 &&
-    gameData.name1 !== gameData.name2
-  ) {
-    chooseSign(gameData.name2);
-    setTimeout(() => (entryBtn.disabled = false), 1000);
-    playSound(2);
-  } else {
-    chooseSign(gameData.name1);
+  if (e.target.name !== "boardSize") {
+    !!gameData.name1 && !!gameData.name2 && gameData.name1 !== gameData.name2
+      ? chooseSign(gameData.name2)
+      : chooseSign(gameData.name1);
   }
 };
 
@@ -150,11 +146,11 @@ function clickbtn1() {
   let isCurrentPlayer = alternatePlayers(moveCounter);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
   if (moveCounter % 2 == 0) {
-    boardArr[this.id[0]][this.id[1]] = "X";
-    this.innerText = "X";
+    boardArr[this.id[0]][this.id[1]] = gameData.name1;
+    this.appendChild(gameData.p1Sym);
   } else {
-    boardArr[this.id[0]][this.id[1]] = "O";
-    this.innerText = "O";
+    boardArr[this.id[0]][this.id[1]] = gameData.name2;
+    this.appendChild(gameData.p2Sym);
   }
   console.log(boardArr);
   moveCounter++;
