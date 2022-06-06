@@ -43,11 +43,15 @@ const restart = () => {
   gameData.start = false;
   show();
 };
+const container = document.querySelector(".symb-container");
 
 const setPlayerSymb = (event) => {
   if (!gameData.p1Sym) {
     gameData.p1Sym = event;
-    delete playerSymb[event.id[0]];
+    delete playerSymb[event.id[0]]; // removing the chosen symbol so it  won't be available for other players
+    document.getElementById("X").remove(); //Clear the display
+    document.getElementById("O").remove();
+    return;
   } else {
     gameData.p2Sym = event;
   }
@@ -58,22 +62,26 @@ const chooseSign = (name) => {
   document.querySelector(
     ".modal-player"
   ).innerText = `${name}, pick your player symbol: `;
-  const container = document.querySelector(".symb-container");
-  // Iterate overplayerSymb and display the symbols.
+  // Iterate over playerSymb and display the symbols.
   for (sym in playerSymb) {
+    const symbolCont = document.createElement("div");
+    symbolCont.setAttribute("id", `${sym}`);
     const symbolName = document.createElement("span");
     symbolName.innerText = `${sym}:`;
-    container.appendChild(symbolName);
+    symbolCont.appendChild(symbolName);
+    container.appendChild(symbolCont);
     for (i in playerSymb[sym]) {
       const symbol = document.createElement("img");
       symbol.setAttribute("src", playerSymb[sym][i]);
       symbol.setAttribute("id", `${sym + i}`);
       symbol.addEventListener("click", (e) => {
         setPlayerSymb(e.target);
+        document.querySelector(".modal").style.display = "none";
       });
-      container.appendChild(symbol);
+      symbolCont.appendChild(symbol);
     }
   }
+  return;
 };
 
 const validity = (e) => {
@@ -84,9 +92,11 @@ const validity = (e) => {
     !!gameData.name2 &&
     gameData.name1 !== gameData.name2
   ) {
-    chooseSign(gameData.name1);
+    chooseSign(gameData.name2);
     setTimeout(() => (entryBtn.disabled = false), 1000);
     playSound(2);
+  } else {
+    chooseSign(gameData.name1);
   }
 };
 

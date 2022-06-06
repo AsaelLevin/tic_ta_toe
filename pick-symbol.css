@@ -38,6 +38,10 @@
       width:100px;
     height:100px;
     }
+    img:hover{
+      transform: scale(1.1);
+      cursor: pointer;
+    }
     .symb-container{
         display:flex;
         
