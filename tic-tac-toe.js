@@ -12,7 +12,12 @@ let gameData = {
   p1Sym: null,
   p2Sym: null,
   start: false,
+  time: "",
+  step: 1,
+  statusBoard:{}
 };
+let timerStop= true
+document.getElementById("entryBtn").disabled = true;
 const playerSymb = {
   O: ["./Symboles/O1.png", "./Symboles/O2.png"],
   X: ["./Symboles/X1.png", "./Symboles/X2.png"],
@@ -41,8 +46,50 @@ const [gameView, openningScreen] = [
 ];
 const restart = () => {
   gameData.start = false;
+  gameData={}
   show();
+  location.reload();
 };
+const saveGame= ()=>{
+  timerStop= false
+  window.localStorage.setItem("game", JSON.stringify(gameData));
+  console.log("saved");
+}
+const beakAction= ()=> {}
+const openSavedGame= ()=>{}
+const timer=()=>{
+  function increment() {
+    if (running == 1) {
+      setTimeout(function() {
+        // debugger
+        
+        Dtime++;
+        var mins = Math.floor(Dtime / 10 / 60) % 60; // Remainder operator
+        if (mins <= 9) {
+          mins = "0" + mins;
+        }
+        var secs = Math.floor(Dtime / 10) % 60; // Remainder operator
+        if (secs <= 9) {
+          secs = "0" + secs;
+        }
+        document.getElementById("outputt").innerHTML = mins + ":" + secs;
+        if(timerStop== false){
+          console.log(mins + ":" + secs);
+          gameData.time= mins + ":" + secs
+        }
+        else{
+        gameData.time= mins + ":" + secs
+        increment()};
+      }, 100);
+    }
+  }
+  
+  var running = 1;
+  var Dtime = 36000; //Setting it just under 1 hour for testing purposes
+  increment();
+ 
+}
+
 const container = document.querySelector(".symb-container");
 
 const setPlayerSymb = (event) => {
@@ -107,6 +154,8 @@ slider.onmouseover = () => {
 const show = () => {
   gameView.style.display = !gameData.start ? "none" : "block";
   openningScreen.style.display = gameData.start ? "none" : "block";
+  chooseSign();
+  timer()
 };
 
 function start() {
@@ -116,6 +165,7 @@ function start() {
   createCard(Number(gameData.boardSize));
   boardArrayConstractor(Number(gameData.boardSize));
   currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
+  chooseSign();
   show();
 }
 
@@ -153,6 +203,8 @@ function clickbtn1() {
     this.appendChild(gameData.p2Sym);
   }
   console.log(boardArr);
+  gameData.step++
+  gameData.statusBoard= gameData.statusBoard+boardArr 
   moveCounter++;
 
   let checkInd = Number(gameData.boardSize) * 2 - 1;
@@ -190,6 +242,7 @@ function alternatePlayers(moveCount) {
 }
 
 function win(winner) {
+  timerStop= false
   alert(winner);
 }
 // This function returns the symbol of the winner

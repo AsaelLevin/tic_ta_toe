@@ -1,5 +1,7 @@
-.screen{
-    text-align: center;
+.screen {
+  text-align: center;
+  background-color: #e7ecf100 ;
+  
 }
 #title{
   font-family:'Ubuntu', sans-serif;
@@ -109,6 +111,12 @@ input[type="text"]{
 input[type=text]:focus {
   transform: translateY(-2px) scale(1.2);
   box-shadow: 0 0.2em 0.5em  #000000;
+}
+select{
+  border: 2px solid black;
+  padding:0.5em;
+  border-radius: 2px;
+  background-color: #ffbe0b;
 }
 .button{
   padding:50px;
