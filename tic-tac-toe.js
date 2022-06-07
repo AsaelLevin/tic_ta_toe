@@ -1,8 +1,21 @@
+const sounds = [
+  "./sounds/pop.wav",
+  "./sounds/swoosh.wav",
+  "./sounds/entry.wav",
+  "./sounds/sparkle.wav",
+  "./sounds/bloop.wav",
+];
 let gameData = {
   boardSize: 3,
   name1: null,
   name2: null,
+  p1Sym: null,
+  p2Sym: null,
   start: false,
+};
+const playerSymb = {
+  O: ["./Symboles/O1.png", "./Symboles/O2.png"],
+  X: ["./Symboles/X1.png", "./Symboles/X2.png"],
 };
 let entryBtn = document.getElementById("entryBtn");
 
@@ -30,26 +43,58 @@ const restart = () => {
   gameData.start = false;
   show();
 };
-const chooseSign = () => {};
+const container = document.querySelector(".symb-container");
 
-const validity = (e) => {
-  gameData[e.target.name] = e.target.value;
-  if (e.target.id != "slider_value") {
-    document.getElementById(e.target.id).setAttribute("readonly", "true");
-  }
-  if (!!gameData.name1 && !!gameData.name2) {
+const setPlayerSymb = (event) => {
+  if (!gameData.p1Sym) {
+    gameData.p1Sym = event;
+    delete playerSymb[event.id[0]]; // removing the chosen symbol so it  won't be available for other players
+    document.getElementById("X").remove(); //Clear the display
+    document.getElementById("O").remove();
+    return;
+  } else {
+    gameData.p2Sym = event;
     setTimeout(() => (entryBtn.disabled = false), 1000);
     playSound(2);
+    return;
   }
 };
 
-const sounds = [
-  "./sounds/pop.wav",
-  "./sounds/swoosh.wav",
-  "./sounds/entry.wav",
-  "./sounds/sparkle.wav",
-  "./sounds/bloop.wav",
-];
+const chooseSign = (name) => {
+  document.querySelector(".modal").style.display = "block";
+  document.querySelector(
+    ".modal-player"
+  ).innerText = `${name}, pick your player symbol: `;
+  // Iterate over playerSymb and display the symbols.
+  for (sym in playerSymb) {
+    const symbolCont = document.createElement("div");
+    symbolCont.setAttribute("id", `${sym}`);
+    const symbolName = document.createElement("span");
+    symbolName.innerText = `${sym}:`;
+    symbolCont.appendChild(symbolName);
+    container.appendChild(symbolCont);
+    for (i in playerSymb[sym]) {
+      const symbol = document.createElement("img");
+      symbol.setAttribute("src", playerSymb[sym][i]);
+      symbol.setAttribute("id", `${sym + i}`);
+      symbol.addEventListener("click", (e) => {
+        setPlayerSymb(e.target);
+        document.querySelector(".modal").style.display = "none";
+      });
+      symbolCont.appendChild(symbol);
+    }
+  }
+  return;
+};
+
+const validity = (e) => {
+  gameData[e.target.name] = e.target.value;
+  if (e.target.name !== "boardSize") {
+    !!gameData.name1 && !!gameData.name2 && gameData.name1 !== gameData.name2
+      ? chooseSign(gameData.name2)
+      : chooseSign(gameData.name1);
+  }
+};
 
 function playSound(soundInd) {
   const audio = new Audio(sounds[soundInd]);
@@ -101,11 +146,11 @@ function clickbtn1() {
   let isCurrentPlayer = alternatePlayers(moveCounter);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
   if (moveCounter % 2 == 0) {
-    boardArr[this.id[0]][this.id[1]] = "X";
-    this.innerText = "X";
+    boardArr[this.id[0]][this.id[1]] = gameData.name1;
+    this.appendChild(gameData.p1Sym);
   } else {
-    boardArr[this.id[0]][this.id[1]] = "O";
-    this.innerText = "O";
+    boardArr[this.id[0]][this.id[1]] = gameData.name2;
+    this.appendChild(gameData.p2Sym);
   }
   console.log(boardArr);
   moveCounter++;
