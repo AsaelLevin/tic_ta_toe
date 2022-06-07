@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="tic-tac-toe.css" />
+    <link rel="stylesheet" href="pick-symbol.css" />
     <link rel="stylesheet" href="enter.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,6 +28,7 @@
       <button type="button" name="back">back</button>
       <button type="button" name="OpenSavedGame">Open saved Game</button>
       <div id="outputt" class="timerClock" value="00:00">00:00</div>
+        <button class="restart-button" id="restart" type="button" name="restart" style="vertical-align:middle" onclick="restart()"><span>Back to entry</span></button>
       </div>
     <div class="currentPlayer" id="currentPlayer">Current Player:</div>
     <div class="main">
@@ -58,13 +60,6 @@
       <div class="player1">
           <label for="name1">Player 1 enter your name: </label>
           <input type="text" title="Player name" name="name1" id="name1" placeholder="Cosmic Giraffe" required/>
-         <br>
-          <label for="sign">Player 1 choose sign:</label>
-          <select name="sign" id="sign" >
-            <option value="X">✗</option>
-            <option value="O">😍</option>
-
-          </select>
         </div>
         <div class="player2">
           <label for="name2">Player 2 enter your name: </label>
@@ -78,6 +73,15 @@
         </span>
       </form>
 </div>
+</div>
+<div id="pick-symbol" class="modal">
+
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="modal-player"></div>
+    <div class="symb-container"></div>
+  </div>
+
 </div>
     <script src="tic-tac-toe.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
