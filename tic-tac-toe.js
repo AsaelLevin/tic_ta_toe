@@ -1,9 +1,27 @@
+const playerSymb = {
+  O: [
+    "./Symboles/O1.png",
+    "./Symboles/O2.png",
+    "./Symboles/O3.png",
+    "./Symboles/O4.png",
+  ],
+  X: [
+    "./Symboles/X1.png",
+    "./Symboles/X2.png",
+    "./Symboles/X3.png",
+    "./Symboles/X4.png",
+  ],
+};
 const sounds = [
   "./sounds/pop.wav",
   "./sounds/swoosh.wav",
   "./sounds/entry.wav",
   "./sounds/sparkle.wav",
   "./sounds/bloop.wav",
+  "./sounds/select-click.wav",
+  "./sounds/back-click.wav",
+  "./sounds/place-sym.wav",
+  "./sounds/win.wav",
 ];
 let gameData = {
   boardSize: 3,
@@ -22,13 +40,13 @@ function activateButt() {
   lst.forEach((item) => item.classList.remove("active"));
   this.classList.add("active");
 }
+function clickedButt() {
+  playSound(6);
+}
 lst.forEach((item) => item.addEventListener("mouseover", activateButt));
+lst.forEach((item) => item.addEventListener("click", clickedButt));
 let timerStop = true;
 document.getElementById("entryBtn").disabled = true;
-const playerSymb = {
-  O: ["./Symboles/O1.png", "./Symboles/O2.png"],
-  X: ["./Symboles/X1.png", "./Symboles/X2.png"],
-};
 let entryBtn = document.getElementById("entryBtn");
 
 entryBtn.disabled = true;
@@ -198,6 +216,7 @@ function boardArrayConstractor(size) {
   }
 }
 function clickbtn1() {
+  playSound(5);
   this.removeEventListener("click", clickbtn1);
   let isCurrentPlayer = alternatePlayers(moveCounter);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
@@ -250,6 +269,7 @@ function alternatePlayers(moveCount) {
 function win(winner) {
   timerStop = false;
   alert(winner);
+  playSound(8);
 }
 // This function returns the symbol of the winner
 function checkWin(board) {
