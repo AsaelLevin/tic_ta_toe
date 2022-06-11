@@ -1,3 +1,22 @@
+function closePopUp() {
+  document.getElementById("popup").className = "closepop";
+}
+
+function openPopUp(winner) {
+
+  const popup = document.getElementById("popup");
+  const textpopup = document.createElement("div");
+  textpopup.innerHTML += "The winner is......" + winner;
+  textpopup.className = "textpopup"
+  popup.appendChild(textpopup);
+  popup.className = "openpop";
+
+  playSound(8);
+
+
+
+}
+
 const playerSymb = {
   O: [
     "./Symboles/O1.png",
@@ -73,6 +92,7 @@ const restart = () => {
   gameData.start = false;
   gameData = {};
   show();
+  closePopUp();
   location.reload();
 };
 const saveGame = () => {
@@ -80,8 +100,8 @@ const saveGame = () => {
   window.localStorage.setItem("game", JSON.stringify(gameData));
   console.log("saved");
 };
-const beakAction = () => {};
-const openSavedGame = () => {};
+const beakAction = () => { };
+const openSavedGame = () => { };
 const timer = () => {
   function increment() {
     if (running == 1) {
@@ -268,8 +288,8 @@ function alternatePlayers(moveCount) {
 
 function win(winner) {
   timerStop = false;
-  alert(winner);
-  playSound(8);
+
+  openPopUp(winner)
 }
 // This function returns the symbol of the winner
 function checkWin(board) {
