@@ -1,5 +1,17 @@
 
 
+let timerStop = true;
+let entryBtn = document.getElementById("entryBtn");
+entryBtn.disabled = true;
+const inputs = document.querySelectorAll("input");
+inputs.forEach((e) =>
+  e.addEventListener("focus", () => {
+    playSound(3);
+  })
+);
+
+
+
 const playerSymb = {
   O: [
     "./Symboles/O1.png",
@@ -36,9 +48,6 @@ let gameData = {
   step: 1,
   statusBoard: {},
 };
-const lst = document.querySelectorAll(".list");
-
-
 
 
 function closePopUp() {
@@ -55,26 +64,20 @@ function openPopUp(winner) {
   popup.className = "openpop";
   playSound(8);
 }
+
+
+const lst = document.querySelectorAll(".list");
+lst.forEach((item) => item.addEventListener("mouseover", activateButt));
+lst.forEach((item) => item.addEventListener("click", () => playSound(6)));
 function activateButt() {
   lst.forEach((item) => item.classList.remove("active"));
   this.classList.add("active");
 }
-function clickedButt() {
-  playSound(6);
-}
-lst.forEach((item) => item.addEventListener("mouseover", activateButt));
-lst.forEach((item) => item.addEventListener("click", clickedButt));
-let timerStop = true;
-document.getElementById("entryBtn").disabled = true;
-let entryBtn = document.getElementById("entryBtn");
 
-entryBtn.disabled = true;
-const inputs = document.querySelectorAll("input");
-inputs.forEach((e) =>
-  e.addEventListener("focus", () => {
-    playSound(3);
-  })
-);
+
+
+
+
 const form = document.querySelector("form");
 form.addEventListener("change", (e) => validity(e));
 
@@ -100,8 +103,7 @@ const saveGame = () => {
   window.localStorage.setItem("game", JSON.stringify(gameData));
   console.log("saved");
 };
-const beakAction = () => { };
-const openSavedGame = () => { };
+
 const timer = () => {
   function increment() {
     if (running == 1) {
