@@ -1,5 +1,5 @@
 
-
+let moveCounter = 0;
 let timerStop = true;
 let entryBtn = document.getElementById("entryBtn");
 entryBtn.disabled = true;
@@ -10,6 +10,18 @@ inputs.forEach((e) =>
   })
 );
 
+const form = document.querySelector("form");
+form.addEventListener("change", (e) => validity(e));
+const slider = document.getElementById("slider_value"),
+  sliderDisp = document.getElementById("board_size");
+slider.oninput = (e) => {
+  sliderDisp.innerText = `${e.target.value} X ${e.target.value}`;
+  playSound(4);
+};
+
+slider.onmouseover = () => {
+  playSound(0);
+};
 
 
 const playerSymb = {
@@ -37,6 +49,10 @@ const sounds = [
   "./sounds/place-sym.wav",
   "./sounds/win.wav",
 ];
+function playSound(soundInd) {
+  const audio = new Audio(sounds[soundInd]);
+  audio.play();
+}
 let gameData = {
   boardSize: 3,
   name1: null,
@@ -49,6 +65,14 @@ let gameData = {
   statusBoard: {},
 };
 
+
+const lst = document.querySelectorAll(".list");
+lst.forEach((item) => item.addEventListener("mouseover", activateButt));
+lst.forEach((item) => item.addEventListener("click", () => playSound(6)));
+function activateButt() {
+  lst.forEach((item) => item.classList.remove("active"));
+  this.classList.add("active");
+}
 
 function closePopUp() {
   document.getElementById("popup").className = "closepop";
@@ -64,29 +88,6 @@ function openPopUp(winner) {
   popup.className = "openpop";
   playSound(8);
 }
-
-
-const lst = document.querySelectorAll(".list");
-lst.forEach((item) => item.addEventListener("mouseover", activateButt));
-lst.forEach((item) => item.addEventListener("click", () => playSound(6)));
-function activateButt() {
-  lst.forEach((item) => item.classList.remove("active"));
-  this.classList.add("active");
-}
-
-
-
-
-
-const form = document.querySelector("form");
-form.addEventListener("change", (e) => validity(e));
-
-const slider = document.getElementById("slider_value"),
-  sliderDisp = document.getElementById("board_size");
-slider.oninput = (e) => {
-  sliderDisp.innerText = `${e.target.value} X ${e.target.value}`;
-  playSound(4);
-};
 const [gameView, openningScreen] = [
   document.querySelector(".game"),
   document.querySelector(".openning"),
@@ -97,6 +98,12 @@ const restart = () => {
   show();
   closePopUp();
   location.reload();
+};
+const show = () => {
+  gameView.style.display = !gameData.start ? "none" : "block";
+  openningScreen.style.display = gameData.start ? "none" : "block";
+  chooseSign();
+  timer();
 };
 const saveGame = () => {
   timerStop = false;
@@ -137,7 +144,6 @@ const timer = () => {
 };
 
 const container = document.querySelector(".symb-container");
-
 const setPlayerSymb = (event) => {
   if (!gameData.p1Sym) {
     gameData.p1Sym = event;
@@ -189,20 +195,7 @@ const validity = (e) => {
   }
 };
 
-function playSound(soundInd) {
-  const audio = new Audio(sounds[soundInd]);
-  audio.play();
-}
 
-slider.onmouseover = () => {
-  playSound(0);
-};
-const show = () => {
-  gameView.style.display = !gameData.start ? "none" : "block";
-  openningScreen.style.display = gameData.start ? "none" : "block";
-  chooseSign();
-  timer();
-};
 
 function start() {
   gameData.start = true;
@@ -215,6 +208,7 @@ function start() {
   show();
 }
 
+
 let boardArr = [];
 const board = document.getElementById("board");
 const currentPlayer = document.getElementById("currentPlayer");
@@ -222,7 +216,6 @@ const currentPlayer = document.getElementById("currentPlayer");
 function currentPlayerfunc(name) {
   currentPlayer.innerHTML = `Current Player: ${name}`;
 }
-
 function newArray(size) {
   //genert new array and return
   const newArr = [];
@@ -237,9 +230,11 @@ function boardArrayConstractor(size) {
     boardArr[i] = newArray(size);
   }
 }
-function clickbtn1() {
+
+
+function clickbtn() {
   playSound(5);
-  this.removeEventListener("click", clickbtn1);
+  this.removeEventListener("click", clickbtn);
   let isCurrentPlayer = alternatePlayers(moveCounter);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
   if (moveCounter % 2 == 0) {
@@ -270,17 +265,14 @@ function createCard(idx) {
       col.className = `card`;
       col.innerText = "";
       col.id = `${i}${f}`;
-      col.addEventListener("click", clickbtn1);
+      col.addEventListener("click", clickbtn);
       row.appendChild(col);
     }
     board.appendChild(row);
   }
 }
 
-// PLAYER REGISTER
-let moveCounter = 0;
 
-// ALTERNATE PLAYERS
 function alternatePlayers(moveCount) {
   let currentPlayer;
   let isEven = moveCount % 2;
@@ -293,6 +285,7 @@ function win(winner) {
 
   openPopUp(winner)
 }
+
 // This function returns the symbol of the winner
 function checkWin(board) {
   let isWin = null;
