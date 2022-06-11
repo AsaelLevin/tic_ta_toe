@@ -1,9 +1,29 @@
+
+
+const playerSymb = {
+  O: [
+    "./Symboles/O1.png",
+    "./Symboles/O2.png",
+    "./Symboles/O3.png",
+    "./Symboles/O4.png",
+  ],
+  X: [
+    "./Symboles/X1.png",
+    "./Symboles/X2.png",
+    "./Symboles/X3.png",
+    "./Symboles/X4.png",
+  ],
+};
 const sounds = [
   "./sounds/pop.wav",
   "./sounds/swoosh.wav",
   "./sounds/entry.wav",
   "./sounds/sparkle.wav",
   "./sounds/bloop.wav",
+  "./sounds/select-click.wav",
+  "./sounds/back-click.wav",
+  "./sounds/place-sym.wav",
+  "./sounds/win.wav",
 ];
 let gameData = {
   boardSize: 3,
@@ -14,14 +34,38 @@ let gameData = {
   start: false,
   time: "",
   step: 1,
-  statusBoard: {}
+  statusBoard: {},
 };
-let timerStop = true
+const lst = document.querySelectorAll(".list");
+
+
+
+
+function closePopUp() {
+  document.getElementById("popup").className = "closepop";
+}
+
+function openPopUp(winner) {
+
+  const popup = document.getElementById("closepopup");
+  const textpopup = document.createElement("div");
+  textpopup.innerHTML += "The winner is......" + winner;
+  textpopup.className = "textpopup"
+  popup.appendChild(textpopup);
+  popup.className = "openpop";
+  playSound(8);
+}
+function activateButt() {
+  lst.forEach((item) => item.classList.remove("active"));
+  this.classList.add("active");
+}
+function clickedButt() {
+  playSound(6);
+}
+lst.forEach((item) => item.addEventListener("mouseover", activateButt));
+lst.forEach((item) => item.addEventListener("click", clickedButt));
+let timerStop = true;
 document.getElementById("entryBtn").disabled = true;
-const playerSymb = {
-  O: ["./Symboles/O1.png", "./Symboles/O2.png"],
-  X: ["./Symboles/X1.png", "./Symboles/X2.png"],
-};
 let entryBtn = document.getElementById("entryBtn");
 
 entryBtn.disabled = true;
@@ -46,17 +90,18 @@ const [gameView, openningScreen] = [
 ];
 const restart = () => {
   gameData.start = false;
-  gameData = {}
+  gameData = {};
   show();
+  closePopUp();
   location.reload();
 };
 const saveGame = () => {
-  timerStop = false
+  timerStop = false;
   window.localStorage.setItem("game", JSON.stringify(gameData));
   console.log("saved");
-}
-const beakAction = () => { }
-const openSavedGame = () => { }
+};
+const beakAction = () => { };
+const openSavedGame = () => { };
 const timer = () => {
   function increment() {
     if (running == 1) {
@@ -72,15 +117,14 @@ const timer = () => {
         if (secs <= 9) {
           secs = "0" + secs;
         }
-        document.getElementById("outputt").innerHTML = mins + ":" + secs;
+        document.getElementById("timer").innerHTML = mins + ":" + secs;
         if (timerStop == false) {
           console.log(mins + ":" + secs);
-          gameData.time = mins + ":" + secs
+          gameData.time = mins + ":" + secs;
+        } else {
+          gameData.time = mins + ":" + secs;
+          increment();
         }
-        else {
-          gameData.time = mins + ":" + secs
-          increment()
-        };
       }, 100);
     }
   }
@@ -88,8 +132,7 @@ const timer = () => {
   var running = 1;
   var Dtime = 36000; //Setting it just under 1 hour for testing purposes
   increment();
-
-}
+};
 
 const container = document.querySelector(".symb-container");
 
@@ -102,7 +145,7 @@ const setPlayerSymb = (event) => {
     return;
   } else {
     gameData.p2Sym = event;
-    setTimeout(() => (entryBtn.disabled = false), 1000);
+    setTimeout(() => (entryBtn.disabled = false), 700);
     playSound(2);
     return;
   }
@@ -156,7 +199,7 @@ const show = () => {
   gameView.style.display = !gameData.start ? "none" : "block";
   openningScreen.style.display = gameData.start ? "none" : "block";
   chooseSign();
-  timer()
+  timer();
 };
 
 function start() {
@@ -193,6 +236,7 @@ function boardArrayConstractor(size) {
   }
 }
 function clickbtn1() {
+  playSound(5);
   this.removeEventListener("click", clickbtn1);
   let isCurrentPlayer = alternatePlayers(moveCounter);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
@@ -204,8 +248,8 @@ function clickbtn1() {
     this.appendChild(gameData.p2Sym);
   }
   console.log(boardArr);
-  gameData.step++
-  gameData.statusBoard = gameData.statusBoard + boardArr
+  gameData.step++;
+  gameData.statusBoard = gameData.statusBoard + boardArr;
   moveCounter++;
 
   let checkInd = Number(gameData.boardSize) * 2 - 1;
@@ -243,8 +287,9 @@ function alternatePlayers(moveCount) {
 }
 
 function win(winner) {
-  timerStop = false
-  alert(winner);
+  timerStop = false;
+
+  openPopUp(winner)
 }
 // This function returns the symbol of the winner
 function checkWin(board) {
