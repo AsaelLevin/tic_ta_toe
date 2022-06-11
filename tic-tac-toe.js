@@ -1,21 +1,4 @@
-function closePopUp() {
-  document.getElementById("popup").className = "closepop";
-}
 
-function openPopUp(winner) {
-
-  const popup = document.getElementById("popup");
-  const textpopup = document.createElement("div");
-  textpopup.innerHTML += "The winner is......" + winner;
-  textpopup.className = "textpopup"
-  popup.appendChild(textpopup);
-  popup.className = "openpop";
-
-  playSound(8);
-
-
-
-}
 
 const playerSymb = {
   O: [
@@ -55,6 +38,23 @@ let gameData = {
 };
 const lst = document.querySelectorAll(".list");
 
+
+
+
+function closePopUp() {
+  document.getElementById("popup").className = "closepop";
+}
+
+function openPopUp(winner) {
+
+  const popup = document.getElementById("closepopup");
+  const textpopup = document.createElement("div");
+  textpopup.innerHTML += "The winner is......" + winner;
+  textpopup.className = "textpopup"
+  popup.appendChild(textpopup);
+  popup.className = "openpop";
+  playSound(8);
+}
 function activateButt() {
   lst.forEach((item) => item.classList.remove("active"));
   this.classList.add("active");
