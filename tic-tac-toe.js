@@ -220,12 +220,17 @@ function clickbtn1() {
   this.removeEventListener("click", clickbtn1);
   let isCurrentPlayer = alternatePlayers(moveCounter);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
+  debugger;
   if (moveCounter % 2 == 0) {
     boardArr[this.id[0]][this.id[1]] = gameData.name1;
-    this.appendChild(gameData.p1Sym);
+    const newDiv = document.createElement("div");
+    newDiv.innerHTML = "ASS";
+    this.appendChild(newDiv);
   } else {
     boardArr[this.id[0]][this.id[1]] = gameData.name2;
-    this.appendChild(gameData.p2Sym);
+    const newDiv = document.createElement("div");
+    newDiv.innerHTML = "BASS";
+    this.appendChild(newDiv);
   }
   console.log(boardArr);
   gameData.step++;
