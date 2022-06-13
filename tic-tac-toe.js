@@ -1,4 +1,3 @@
-
 let moveCounter = 0;
 let timerStop = true;
 let entryBtn = document.getElementById("entryBtn");
@@ -22,7 +21,6 @@ slider.oninput = (e) => {
 slider.onmouseover = () => {
   playSound(0);
 };
-
 
 const playerSymb = {
   O: [
@@ -65,7 +63,6 @@ let gameData = {
   statusBoard: {},
 };
 
-
 const lst = document.querySelectorAll(".list");
 lst.forEach((item) => item.addEventListener("mouseover", activateButt));
 lst.forEach((item) => item.addEventListener("click", () => playSound(6)));
@@ -79,11 +76,10 @@ function closePopUp() {
 }
 
 function openPopUp(winner) {
-
   const popup = document.getElementById("closepopup");
   const textpopup = document.createElement("div");
   textpopup.innerHTML += "The winner is......" + winner;
-  textpopup.className = "textpopup"
+  textpopup.className = "textpopup";
   popup.appendChild(textpopup);
   popup.className = "openpop";
   playSound(8);
@@ -146,13 +142,13 @@ const timer = () => {
 const container = document.querySelector(".symb-container");
 const setPlayerSymb = (event) => {
   if (!gameData.p1Sym) {
-    gameData.p1Sym = event;
+    gameData.p1Sym = playerSymb[event.id[0]][event.id[1]];
     delete playerSymb[event.id[0]]; // removing the chosen symbol so it  won't be available for other players
     document.getElementById("X").remove(); //Clear the display
     document.getElementById("O").remove();
     return;
   } else {
-    gameData.p2Sym = event;
+    gameData.p2Sym = playerSymb[event.id[0]][event.id[1]];
     setTimeout(() => (entryBtn.disabled = false), 700);
     playSound(2);
     return;
@@ -195,8 +191,6 @@ const validity = (e) => {
   }
 };
 
-
-
 function start() {
   gameData.start = true;
   document.getElementById("body").classList.add("body-g");
@@ -207,7 +201,6 @@ function start() {
   chooseSign();
   show();
 }
-
 
 let boardArr = [];
 const board = document.getElementById("board");
@@ -231,7 +224,6 @@ function boardArrayConstractor(size) {
   }
 }
 
-
 function clickbtn() {
   playSound(5);
   this.removeEventListener("click", clickbtn);
@@ -239,10 +231,10 @@ function clickbtn() {
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
   if (moveCounter % 2 == 0) {
     boardArr[this.id[0]][this.id[1]] = gameData.name1;
-    this.appendChild(gameData.p1Sym);
+    this.innerHTML = `<img src="${gameData.p1Sym}">`;
   } else {
     boardArr[this.id[0]][this.id[1]] = gameData.name2;
-    this.appendChild(gameData.p2Sym);
+    this.innerHTML = `<img src="${gameData.p2Sym}">`;
   }
   console.log(boardArr);
   gameData.step++;
@@ -272,7 +264,6 @@ function createCard(idx) {
   }
 }
 
-
 function alternatePlayers(moveCount) {
   let currentPlayer;
   let isEven = moveCount % 2;
@@ -283,7 +274,7 @@ function alternatePlayers(moveCount) {
 function win(winner) {
   timerStop = false;
 
-  openPopUp(winner)
+  openPopUp(winner);
 }
 
 // This function returns the symbol of the winner
