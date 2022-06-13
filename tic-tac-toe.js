@@ -1,4 +1,5 @@
 let moveCounter = 0;
+let boardSet = null;
 let timerStop = true;
 let entryBtn = document.getElementById("entryBtn");
 entryBtn.disabled = true;
@@ -270,6 +271,10 @@ function alternatePlayers(moveCount) {
   currentPlayer = isEven ? gameData.name1 : gameData.name2;
   return currentPlayer;
 }
+function tiePopup() {
+  let popup = document.querySelector(".tiePopup");
+  popup.style.visibility = "visible";
+}
 
 function win(winner) {
   timerStop = false;
@@ -277,7 +282,7 @@ function win(winner) {
   openPopUp(winner);
 }
 
-// This function returns the symbol of the winner
+// This function is viable for any nXn matrix and returns the symbol of the winner
 function checkWin(board) {
   let isWin = null;
   // n is the matrix dimension
@@ -314,5 +319,10 @@ function checkWin(board) {
   isWin = equalElements(secDiag);
   if (isWin) {
     win(isWin);
+  }
+
+  boardSet = new Set(boardArr.flat());
+  if (!boardSet.has("") && !isWin) {
+    tiePopup();
   }
 }
