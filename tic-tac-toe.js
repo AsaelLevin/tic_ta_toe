@@ -14,7 +14,8 @@ let gameData = {
   start: false,
   time: "",
   step: 1,
-  statusBoard:{}
+  statusBoard:[],
+  savedGameBoard:[]
 };
 let timerStop= true
 document.getElementById("entryBtn").disabled = true;
@@ -56,7 +57,10 @@ const saveGame= ()=>{
   console.log("saved");
 }
 const beakAction= ()=> {}
-const openSavedGame= ()=>{}
+const openSavedGame= ()=>{
+  newGameData= JSON.parse(window.localStorage.getItem("game"));
+  console.log(newGameData);
+}
 const timer=()=>{
   function increment() {
     if (running == 1) {
@@ -64,11 +68,11 @@ const timer=()=>{
         // debugger
         
         Dtime++;
-        var mins = Math.floor(Dtime / 10 / 60) % 60; // Remainder operator
+        let mins = Math.floor(Dtime / 10 / 60) % 60; // Remainder operator
         if (mins <= 9) {
           mins = "0" + mins;
         }
-        var secs = Math.floor(Dtime / 10) % 60; // Remainder operator
+        let secs = Math.floor(Dtime / 10) % 60; // Remainder operator
         if (secs <= 9) {
           secs = "0" + secs;
         }
@@ -84,8 +88,8 @@ const timer=()=>{
     }
   }
   
-  var running = 1;
-  var Dtime = 36000; //Setting it just under 1 hour for testing purposes
+  let running = 1;
+  let Dtime = 36000; //Setting it just under 1 hour for testing purposes
   increment();
  
 }
@@ -204,7 +208,10 @@ function clickbtn1() {
   }
   console.log(boardArr);
   gameData.step++
-  gameData.statusBoard= gameData.statusBoard+boardArr 
+  let setBoard= boardArr.slice()
+  gameData.savedGameBoard= setBoard;
+  gameData.statusBoard.concat(setBoard ) 
+  console.log("string:"+gameData.statusBoard);
   moveCounter++;
 
   let checkInd = Number(gameData.boardSize) * 2 - 1;
