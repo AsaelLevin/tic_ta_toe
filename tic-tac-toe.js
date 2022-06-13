@@ -142,13 +142,13 @@ const timer = () => {
 const container = document.querySelector(".symb-container");
 const setPlayerSymb = (event) => {
   if (!gameData.p1Sym) {
-    gameData.p1Sym = event;
+    gameData.p1Sym = playerSymb[event.id[0]][event.id[1]];
     delete playerSymb[event.id[0]]; // removing the chosen symbol so it  won't be available for other players
     document.getElementById("X").remove(); //Clear the display
     document.getElementById("O").remove();
     return;
   } else {
-    gameData.p2Sym = event;
+    gameData.p2Sym = playerSymb[event.id[0]][event.id[1]];
     setTimeout(() => (entryBtn.disabled = false), 700);
     playSound(2);
     return;
@@ -223,14 +223,6 @@ function boardArrayConstractor(size) {
     boardArr[i] = newArray(size);
   }
 }
-function createChild(player) {
-  const div = document.createElement("div");
-  div.appendChild(player);
-  let cell = new createNewDomInst(div);
-}
-function createNewDomInst(element) {
-  this.innerHTML = element;
-}
 
 function clickbtn() {
   playSound(5);
@@ -239,10 +231,10 @@ function clickbtn() {
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
   if (moveCounter % 2 == 0) {
     boardArr[this.id[0]][this.id[1]] = gameData.name1;
-    
+    this.innerHTML = `<img src="${gameData.p1Sym}">`;
   } else {
     boardArr[this.id[0]][this.id[1]] = gameData.name2;
-    createNewDomInst(gameData.p2Sym);
+    this.innerHTML = `<img src="${gameData.p2Sym}">`;
   }
   console.log(boardArr);
   gameData.step++;
