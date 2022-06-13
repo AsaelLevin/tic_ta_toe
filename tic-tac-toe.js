@@ -60,8 +60,8 @@ let gameData = {
   p2Sym: null,
   start: false,
   time: "",
-  step: 1,
-  statusBoard: [],
+  step: moveCounter,
+  history: [],
   savedGameBoard: [],
 };
 
@@ -108,7 +108,7 @@ const saveGame = () => {
   window.localStorage.setItem("game", JSON.stringify(gameData));
   console.log("saved");
 };
-const beakAction = () => {};
+
 const openSavedGame = () => {
   newGameData = JSON.parse(window.localStorage.getItem("game"));
   console.log(newGameData);
@@ -120,11 +120,11 @@ const timer = () => {
         // debugger
 
         Dtime++;
-        let mins = Math.floor(Dtime / 10 / 60) % 60; // Remainder operator
+        let mins = Math.floor(Dtime / 10 / 60) % 60;
         if (mins <= 9) {
           mins = "0" + mins;
         }
-        let secs = Math.floor(Dtime / 10) % 60; // Remainder operator
+        let secs = Math.floor(Dtime / 10) % 60;
         if (secs <= 9) {
           secs = "0" + secs;
         }
@@ -141,7 +141,7 @@ const timer = () => {
   }
 
   let running = 1;
-  let Dtime = 36000; //Setting it just under 1 hour for testing purposes
+  let Dtime = 36000;
   increment();
 };
 
@@ -242,13 +242,12 @@ function clickbtn() {
     boardArr[this.id[0]][this.id[1]] = gameData.name2;
     this.innerHTML = `<img src="${gameData.p2Sym}">`;
   }
-  console.log(boardArr);
-  gameData.step++;
+
   let setBoard = boardArr.slice();
   gameData.savedGameBoard = setBoard;
-  gameData.statusBoard.concat(setBoard);
-  console.log("string:" + gameData.statusBoard);
+  gameData.history[moveCounter] = setBoard;
   moveCounter++;
+  console.log(boardArr);
 
   let checkInd = Number(gameData.boardSize) * 2 - 1;
   if (moveCounter >= checkInd) {
