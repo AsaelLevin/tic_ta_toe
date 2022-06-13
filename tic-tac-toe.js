@@ -1,3 +1,28 @@
+let moveCounter = 0;
+let boardSet = null;
+let timerStop = true;
+let entryBtn = document.getElementById("entryBtn");
+entryBtn.disabled = true;
+const inputs = document.querySelectorAll("input");
+inputs.forEach((e) =>
+  e.addEventListener("focus", () => {
+    playSound(3);
+  })
+);
+
+const form = document.querySelector("form");
+form.addEventListener("change", (e) => validity(e));
+const slider = document.getElementById("slider_value"),
+  sliderDisp = document.getElementById("board_size");
+slider.oninput = (e) => {
+  sliderDisp.innerText = `${e.target.value} X ${e.target.value}`;
+  playSound(4);
+};
+
+slider.onmouseover = () => {
+  playSound(0);
+};
+
 const playerSymb = {
   O: [
     "./Symboles/O1.png",
@@ -23,6 +48,10 @@ const sounds = [
   "./sounds/place-sym.wav",
   "./sounds/win.wav",
 ];
+function playSound(soundInd) {
+  const audio = new Audio(sounds[soundInd]);
+  audio.play();
+}
 let gameData = {
   boardSize: 3,
   name1: null,
@@ -34,37 +63,28 @@ let gameData = {
   step: 1,
   statusBoard: {},
 };
-const lst = document.querySelectorAll(".list");
 
+const lst = document.querySelectorAll(".list");
+lst.forEach((item) => item.addEventListener("mouseover", activateButt));
+lst.forEach((item) => item.addEventListener("click", () => playSound(6)));
 function activateButt() {
   lst.forEach((item) => item.classList.remove("active"));
   this.classList.add("active");
 }
-function clickedButt() {
-  playSound(6);
+
+function closePopUp() {
+  document.getElementById("popup").className = "closepop";
 }
-lst.forEach((item) => item.addEventListener("mouseover", activateButt));
-lst.forEach((item) => item.addEventListener("click", clickedButt));
-let timerStop = true;
-document.getElementById("entryBtn").disabled = true;
-let entryBtn = document.getElementById("entryBtn");
 
-entryBtn.disabled = true;
-const inputs = document.querySelectorAll("input");
-inputs.forEach((e) =>
-  e.addEventListener("focus", () => {
-    playSound(3);
-  })
-);
-const form = document.querySelector("form");
-form.addEventListener("change", (e) => validity(e));
-
-const slider = document.getElementById("slider_value"),
-  sliderDisp = document.getElementById("board_size");
-slider.oninput = (e) => {
-  sliderDisp.innerText = `${e.target.value} X ${e.target.value}`;
-  playSound(4);
-};
+function openPopUp(winner) {
+  const popup = document.getElementById("closepopup");
+  const textpopup = document.createElement("div");
+  textpopup.innerHTML += "The winner is......" + winner;
+  textpopup.className = "textpopup";
+  popup.appendChild(textpopup);
+  popup.className = "openpop";
+  playSound(8);
+}
 const [gameView, openningScreen] = [
   document.querySelector(".game"),
   document.querySelector(".openning"),
@@ -73,15 +93,21 @@ const restart = () => {
   gameData.start = false;
   gameData = {};
   show();
+  closePopUp();
   location.reload();
+};
+const show = () => {
+  gameView.style.display = !gameData.start ? "none" : "block";
+  openningScreen.style.display = gameData.start ? "none" : "block";
+  chooseSign();
+  timer();
 };
 const saveGame = () => {
   timerStop = false;
   window.localStorage.setItem("game", JSON.stringify(gameData));
   console.log("saved");
 };
-const beakAction = () => {};
-const openSavedGame = () => {};
+
 const timer = () => {
   function increment() {
     if (running == 1) {
@@ -115,16 +141,15 @@ const timer = () => {
 };
 
 const container = document.querySelector(".symb-container");
-
 const setPlayerSymb = (event) => {
   if (!gameData.p1Sym) {
-    gameData.p1Sym = event;
+    gameData.p1Sym = playerSymb[event.id[0]][event.id[1]];
     delete playerSymb[event.id[0]]; // removing the chosen symbol so it  won't be available for other players
     document.getElementById("X").remove(); //Clear the display
     document.getElementById("O").remove();
     return;
   } else {
-    gameData.p2Sym = event;
+    gameData.p2Sym = playerSymb[event.id[0]][event.id[1]];
     setTimeout(() => (entryBtn.disabled = false), 700);
     playSound(2);
     return;
@@ -167,21 +192,6 @@ const validity = (e) => {
   }
 };
 
-function playSound(soundInd) {
-  const audio = new Audio(sounds[soundInd]);
-  audio.play();
-}
-
-slider.onmouseover = () => {
-  playSound(0);
-};
-const show = () => {
-  gameView.style.display = !gameData.start ? "none" : "block";
-  openningScreen.style.display = gameData.start ? "none" : "block";
-  chooseSign();
-  timer();
-};
-
 function start() {
   gameData.start = true;
   document.getElementById("body").classList.add("body-g");
@@ -200,7 +210,6 @@ const currentPlayer = document.getElementById("currentPlayer");
 function currentPlayerfunc(name) {
   currentPlayer.innerHTML = `Current Player: ${name}`;
 }
-
 function newArray(size) {
   //genert new array and return
   const newArr = [];
@@ -215,22 +224,19 @@ function boardArrayConstractor(size) {
     boardArr[i] = newArray(size);
   }
 }
-function clickbtn1() {
+
+function clickbtn() {
   playSound(5);
-  this.removeEventListener("click", clickbtn1);
+  this.removeEventListener("click", clickbtn);
   let isCurrentPlayer = alternatePlayers(moveCounter);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
   debugger;
   if (moveCounter % 2 == 0) {
     boardArr[this.id[0]][this.id[1]] = gameData.name1;
-    const newDiv = document.createElement("div");
-    newDiv.innerHTML = "ASS";
-    this.appendChild(newDiv);
+    this.innerHTML = `<img src="${gameData.p1Sym}">`;
   } else {
     boardArr[this.id[0]][this.id[1]] = gameData.name2;
-    const newDiv = document.createElement("div");
-    newDiv.innerHTML = "BASS";
-    this.appendChild(newDiv);
+    this.innerHTML = `<img src="${gameData.p2Sym}">`;
   }
   console.log(boardArr);
   gameData.step++;
@@ -253,30 +259,31 @@ function createCard(idx) {
       col.className = `card`;
       col.innerText = "";
       col.id = `${i}${f}`;
-      col.addEventListener("click", clickbtn1);
+      col.addEventListener("click", clickbtn);
       row.appendChild(col);
     }
     board.appendChild(row);
   }
 }
 
-// PLAYER REGISTER
-let moveCounter = 0;
-
-// ALTERNATE PLAYERS
 function alternatePlayers(moveCount) {
   let currentPlayer;
   let isEven = moveCount % 2;
   currentPlayer = isEven ? gameData.name1 : gameData.name2;
   return currentPlayer;
 }
+function tiePopup() {
+  let popup = document.querySelector(".tiePopup");
+  popup.style.visibility = "visible";
+}
 
 function win(winner) {
   timerStop = false;
-  alert(winner);
-  playSound(8);
+
+  openPopUp(winner);
 }
-// This function returns the symbol of the winner
+
+// This function is viable for any nXn matrix and returns the symbol of the winner
 function checkWin(board) {
   let isWin = null;
   // n is the matrix dimension
@@ -313,5 +320,10 @@ function checkWin(board) {
   isWin = equalElements(secDiag);
   if (isWin) {
     win(isWin);
+  }
+
+  boardSet = new Set(boardArr.flat());
+  if (!boardSet.has("") && !isWin) {
+    tiePopup();
   }
 }
