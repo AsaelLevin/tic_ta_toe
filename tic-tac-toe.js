@@ -333,3 +333,70 @@ function checkWin(board) {
     tiePopup();
   }
 }
+
+// SAVE GAME HISTORY AND MOVE BACWORDS LOGIC*******************************************************************
+
+function makeHistoryEntry(from, to) {
+  gameData.history.push({
+    from: {
+      location: from,
+      value: board[from.y][from.x],
+    },
+    to: {
+      location: to,
+      value: board[to.y][to.x],
+    },
+  });
+}
+function rewind() {
+  if (gameData.history.length > 0) {
+    let previousState = gameData.history.pop();
+    let from = previousState.from;
+    boardArr[from.location.y][from.location.x] = from.value;
+    let to = previousState.to;
+    boardArr[to.location.y][to.location.x] = to.value;
+    renderField();
+  }
+}
+
+function makeMove(from, to) {
+  makeHistoryEntry(from, to);
+  let piece = boardArr[from.y][from.x];
+
+  boardArr[from.y][from.x] = " ";
+  boardArr[to.y][to.x] = piece;
+
+  renderField();
+}
+
+function renderField() {
+  let play = document.getElementById("play");
+  let content = [];
+  content.push("Y   -" + [...Array(board[0].length)].join("---"));
+  for (let i = 0; i < board.length; i++) {
+    content.push(i + " : " + board[i].join("  "));
+  }
+  content.push("    -" + [...Array(board[0].length)].join("---"));
+  content.push(" X: " + [...Array(board[0].length).keys()].join("  "));
+  play.innerText = content.join("\n");
+}
+
+let movesElement = document.getElementById("moves");
+let moves = JSON.parse(movesElement.value);
+
+document.getElementById("next_move").addEventListener("click", (e) => {
+  let move = moves.shift();
+  if (move) {
+    makeMove(move.from, move.to);
+  } else {
+    window.alert("No more moves");
+  }
+});
+document.getElementById("rewind").addEventListener("click", rewind);
+document.getElementById("reload").addEventListener("click", (e) => {
+  moves = JSON.parse(movesElement.value);
+  history = [];
+  board = getOriginalBoard();
+  renderField();
+});
+renderField();
