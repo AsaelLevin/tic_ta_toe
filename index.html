@@ -27,14 +27,14 @@
       <div class="navigation">
         <ul>
           <li class="list active">
-            <button type="button" name="restart" onclick="restart()"><span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+            <button type="button" name="back-home"><span class="icon"><ion-icon name="home-outline"></ion-icon></span>
               <span class="text"> Back to entry page</span></button>
           </li>
           <li class="list">
-            <button type="button" name="saveGame" onclick="saveGame()"><span class="icon"><ion-icon name="save-outline"></ion-icon></span><span class="text"> Save Game</span></button>
+            <button type="button" name="saveGame" ><span class="icon"><ion-icon name="save-outline"></ion-icon></span><span class="text"> Save Game</span></button>
           </li>
           <li class="list">
-            <button type="button" name="back"><span class="icon"><ion-icon name="play-back"></ion-icon></span><span class="text"> Back</span></button>
+            <button type="button" name="stepBack"><span class="icon"><ion-icon name="play-back"></ion-icon></span><span class="text"> Back</span></button>
           </li>
           <li class="list">
             <button type="button" name="OpenSavedGame"><span class="icon"><ion-icon name="open-outline"></ion-icon></span><span class="text">Open Saved Game</span></button>
@@ -48,11 +48,11 @@
       <div class="container" id="board"></div>
     </div>
 <div class="closepopup" id="closepopup">
-  <button class="popup" id="popup" type="button" onclick="restart()">Back to entry page</button>
+  <button class="popup" name="back-home" id="popup" type="button" >Back to entry page</button>
 </div>
 <div class="tiePopup">
   <h1>Tie!</h1>
-  <button class="tie-popup" type="button" onclick="restart()">Back to entry page</button>
+  <button class="tie-popup" name="back-home" type="button" >Back to entry page</button>
 </div>
 
   </div>
