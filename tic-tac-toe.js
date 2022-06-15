@@ -1,4 +1,6 @@
 let moveCounter = 0;
+const player2Inp = document.getElementById("name2");
+
 let boardSet = null;
 let timerStop = true;
 let entryBtn = document.getElementById("entryBtn");
@@ -176,6 +178,7 @@ const setPlayerSymb = (event) => {
 };
 
 const chooseSign = (name) => {
+  player2Inp.removeAttribute("disabled");
   document.querySelector(".modal").style.display = "block";
   document.querySelector(
     ".modal-player"
