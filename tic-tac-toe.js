@@ -1,4 +1,4 @@
-let moveCounter = 0;
+
 const player2Inp = document.getElementById("name2");
 
 let boardSet = null;
@@ -76,7 +76,7 @@ let gameData = {
   p2Sym: null,
   start: false,
   time: "",
-  step: moveCounter,
+  step: 0,
   history: [],
   savedGameBoard: [],
 };
@@ -106,6 +106,24 @@ const [gameView, openningScreen] = [
   document.querySelector(".game"),
   document.querySelector(".openning"),
 ];
+const backward = () => {
+  let backStep = boardHistory.pop()
+  backStep = boardHistory.pop()
+  // debugger
+  for (let i = 0; i < gameData.boardSize; i++) {
+    for (let j = 0; j < gameData.boardSize; j++) {
+      // debugger
+      boardArr[i][j] = backStep[i][j]
+    }
+  }
+  
+  gameData.step = gameData.step-1
+  currentPlayerfunc(alternatePlayers(gameData.step-1));
+  // currentPlayerfunc(isCurrentPlayer);
+  boardHistory.push(backStep)
+  displayGame(boardArr)
+  // debugger
+}
 const restart = () => {
   gameData.start = false;
   gameData = {};
@@ -213,19 +231,32 @@ const validity = (e) => {
       : chooseSign(gameData.name1);
   }
 };
-
+let boardArr = [];
+let boardHistory = [];
 function start() {
   gameData.start = true;
   document.getElementById("body").classList.add("body-g");
   document.getElementById("body").classList.remove("body-e");
   createCard(Number(gameData.boardSize));
   boardArrayConstractor(Number(gameData.boardSize));
+  let boardcopy = []
+  for (i = 0; i < gameData.boardSize; i++) {
+    boardcopy[i] = newArray(gameData.boardSize);
+  }
+  for (let i = 0; i < gameData.boardSize; i++) {
+    for (let j = 0; j < gameData.boardSize; j++) {
+      boardcopy[i][j] = boardArr[i][j]
+    }
+  }
+  console.log("after initialize board copy");
+  boardHistory.push(boardcopy);
+  
   currentPlayer.innerHTML = `Current Player: ${gameData.name1}`;
   chooseSign();
   show();
 }
 
-let boardArr = [];
+
 const board = document.getElementById("board");
 const currentPlayer = document.getElementById("currentPlayer");
 
@@ -247,12 +278,35 @@ function boardArrayConstractor(size) {
   }
 }
 
+function displayGame(gameState) {
+  for (let i = 0; i < gameData.boardSize; i++) {
+    for (let j = 0; j < gameData.boardSize; j++) {
+      let id = "" + i + j;
+      let cell = document.getElementById(id);
+
+      if (gameState[i][j] == gameData.name1) {
+        cell.innerHTML = `<img src="${gameData.p1Sym}">`;
+      }
+      else if (gameState[i][j] == gameData.name2) {
+        cell.innerHTML = `<img src="${gameData.p2Sym}">`;
+      }
+      else {
+        cell.innerHTML = ''
+        cell.removeEventListener("click", clickbtn);
+        cell.addEventListener("click", clickbtn)
+      }
+    }
+  }
+
+}
+
 function clickbtn() {
   playSound(5);
+
   this.removeEventListener("click", clickbtn);
-  let isCurrentPlayer = alternatePlayers(moveCounter);
+  let isCurrentPlayer = alternatePlayers(gameData.step);
   currentPlayerfunc(isCurrentPlayer); //input player name to screen
-  if (moveCounter % 2 == 0) {
+  if (gameData.step % 2 == 0) {
     boardArr[this.id[0]][this.id[1]] = gameData.name1;
     this.innerHTML = `<img src="${gameData.p1Sym}">`;
   } else {
@@ -260,16 +314,27 @@ function clickbtn() {
     this.innerHTML = `<img src="${gameData.p2Sym}">`;
   }
 
-  let setBoard = boardArr.slice();
-  gameData.savedGameBoard = setBoard;
-  gameData.history[moveCounter] = setBoard;
-  moveCounter++;
+  let boardcopy = []
+  for (i = 0; i < gameData.boardSize; i++) {
+    boardcopy[i] = newArray(gameData.boardSize);
+  }
+  for (let i = 0; i < gameData.boardSize; i++) {
+    for (let j = 0; j < gameData.boardSize; j++) {
+      boardcopy[i][j] = boardArr[i][j]
+    }
+  }
+ 
+  boardHistory.push(boardcopy);
+  // debugger;
+ 
+  
   console.log(boardArr);
-
+  gameData.step++
   let checkInd = Number(gameData.boardSize) * 2 - 1;
-  if (moveCounter >= checkInd) {
+  if (gameData.step >= checkInd) {
     return checkWin(boardArr);
   }
+  
   return isCurrentPlayer;
 }
 
